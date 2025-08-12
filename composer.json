@@ -11,6 +11,11 @@
             "Xgrz\\InPost\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Xgrz\\InPost\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -29,6 +34,13 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5 || ^11.5",
+        "orchestra/testbench": "^8.0 || ^9.0 || ^10.0"
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit.xml.dist --testdox --colors"
     },
     "config": {
         "allow-plugins": {
