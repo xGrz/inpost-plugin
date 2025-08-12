@@ -3,7 +3,12 @@
 namespace Xgrz\InPost\Tests\Unit;
 
 
-class GetOrganizationTest
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
+use Xgrz\InPost\Facades\InPost;
+use Xgrz\InPost\Tests\InPostTestCase;
+
+class GetOrganizationTest extends InPostTestCase
 {
     use RefreshDatabase;
 

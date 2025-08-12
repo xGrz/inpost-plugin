@@ -2,13 +2,27 @@
 
 namespace Xgrz\InPost\Tests;
 
-use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
+use Orchestra\Testbench\TestCase;
+use Xgrz\InPost\InPostServiceProvider;
 
 abstract class InPostTestCase extends TestCase
 {
 
-    public function organizationsResponse()
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('migrate');
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [
+            InPostServiceProvider::class,
+        ];
+    }
+
+    public function organizationsResponse(): array
     {
         return [
             '*' => Http::response(
