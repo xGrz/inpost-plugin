@@ -6,15 +6,19 @@ use Illuminate\Support\ServiceProvider;
 
 class InPostServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
+        self::setupMigrations();
+        self::setupShipXRouting();
+        self::setupTranslations();
     }
 
     public function boot()
     {
-        self::setupMigrations();
-        self::setupNotificationRouting();
-        self::setupTranslations();
+        $this->publishes(
+            [__DIR__.'/../config/inpost.php' => config_path('inpost.php')],
+            'inpost-config'
+        );
     }
 
     private function setupMigrations(): void
@@ -24,7 +28,7 @@ class InPostServiceProvider extends ServiceProvider
         }
     }
 
-    private function setupNotificationRouting(): void
+    private function setupShipXRouting(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }

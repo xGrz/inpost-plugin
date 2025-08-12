@@ -1,0 +1,38 @@
+{
+    "name": "xgrz/inpost-plugin",
+    "description": "InPost plugin for Laravel",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "inpost"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Xgrz\\InPost\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Xgrz\\InPost\\InPostServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Grzegorz Byśkiniewicz",
+            "email": "grzesiek.byskiniewicz@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^10.0|^11.0|^12.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
