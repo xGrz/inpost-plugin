@@ -15,6 +15,16 @@ abstract class InPostTestCase extends TestCase
         $this->artisan('migrate');
     }
 
+    public function getEnvironmentSetUp($app): void
+    {
+        $app['config']->set('inpost.organization', '1916');
+        $app['config']->set('inpost.token', 'INPOST-TOKEN');
+        $app['config']->set('inpost.url', 'https://sandbox-api-shipx-pl.easypack24.net');
+        $app['config']->set('inpost.widget', 'WIDGET-TOKEN');
+        $app['config']->set('inpost.minimum_insurance_value', 500);
+        $app['config']->set('inpost.synchronize_points_chunk_size', 500);
+    }
+
     protected function getPackageProviders($app): array
     {
         return [

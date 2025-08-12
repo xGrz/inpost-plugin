@@ -15,11 +15,6 @@ class GetOrganizationTest extends InPostTestCase
     public function setUp(): void
     {
         parent::setUp();
-        config([
-            'inpost.organization' => '1916',
-            'inpost.token' => '123456789',
-            'inpost.url' => 'https://sandbox-api-shipx-pl.easypack24.net',
-        ]);
     }
 
     public function test_api_call_to_fetch_organization()
@@ -31,7 +26,7 @@ class GetOrganizationTest extends InPostTestCase
             return $request->url() === 'https://sandbox-api-shipx-pl.easypack24.net/v1/organizations/1916';
         });
 
-        Http::assertSent(fn($request) => $request->hasHeader('Authorization', 'Bearer 123456789'));
+        Http::assertSent(fn($request) => $request->hasHeader('Authorization', 'Bearer INPOST-TOKEN'));
         Http::assertSent(fn($request) => $request->hasHeader('Accept', 'application/json'));;
         Http::assertSent(fn($request) => $request->hasHeader('Content-Type', 'application/json'));;
         Http::assertSent(fn($request) => $request->hasHeader('Accept-Language', 'pl-PL'));;
