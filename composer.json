@@ -8,7 +8,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Xgrz\\InPost\\": "src/"
+            "Xgrz\\InPost\\": "src/",
+            "Xgrz\\InPost\\Tests\\": "tests/"
         }
     },
     "extra": {
