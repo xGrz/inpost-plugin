@@ -4,11 +4,13 @@ namespace Xgrz\InPost\Facades;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
-use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\CostCenter;
+use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
+use Xgrz\InPost\Enums\ParcelLockerTemplate;
+use Xgrz\InPost\Models\ParcelTemplate;
 
 class InPost
 {
@@ -36,7 +38,6 @@ class InPost
     public static function services()
     {
         return (new Services)->get();
-
     }
 
     public static function getServiceDescription(string $serviceName): ?array
@@ -55,11 +56,27 @@ class InPost
     {
         return (new CostCenter);
     }
+
     /**
      * @throws ConnectionException
      */
     public static function label(string $inPostShipmentId): string
     {
         return (new Label())->get($inPostShipmentId);
+    }
+
+    public static function parcelLockerTemplates(): Collection
+    {
+        return ParcelLockerTemplate::optionsForLocker();
+    }
+
+    public static function parcelAddressTemplates(): Collection
+    {
+        return ParcelLockerTemplate::optionsForAddress();
+    }
+
+    public static function parcelCourierTemplates(): Collection
+    {
+        return collect(ParcelTemplate::all()->toArray());
     }
 }
