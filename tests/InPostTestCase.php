@@ -51,9 +51,33 @@ abstract class InPostTestCase extends TestCase
         return ['*' => Http::response(self::fromFile('ServicesResponse.json'))];
     }
 
+    public function fakeCostCentersListResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('CostCentersListResponse.json'))];
+    }
+
+    public function fakeCostCenterCreateResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('CostCenterCreateResponse.json'))];
+    }
+
+    public function fakeCostCenterDetailsResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('CostCenterDetailsResponse.json'))];
+    }
+
+    public function fakeCostCenterUpdateResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('CostCenterUpdateResponse.json'))];
+    }
+
+
+
+
     protected function fromFile(string $file): array
     {
         return json_decode(file_get_contents(__DIR__ . '/JsonResponses/' . $file), true);
     }
+
 }
 

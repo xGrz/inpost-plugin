@@ -3,6 +3,7 @@
 namespace Xgrz\InPost\Facades;
 
 use Illuminate\Support\Collection;
+use Xgrz\InPost\ApiRequests\CostCenter;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
@@ -33,7 +34,6 @@ class InPost
     public static function services()
     {
         return (new Services)->get();
-
     }
 
     public static function getServiceDescription(string $serviceName): ?array
@@ -48,4 +48,8 @@ class InPost
     }
 
 
+    public static function costCenters(): CostCenter
+    {
+        return (new CostCenter);
+    }
 }

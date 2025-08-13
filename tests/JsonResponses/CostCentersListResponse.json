@@ -1,0 +1,32 @@
+{
+  "href": "http://api-shipx-pl.easypack24.net:3000/v1/organizations/1/mpks",
+  "count": 3,
+  "page": 1,
+  "per_page": 30,
+  "items": [
+    {
+      "href": "https://api-shipx-pl.easypack24.net/v1/mpks/3",
+      "id": 3,
+      "name": "First",
+      "description": "Some New Description 1",
+      "created_at": "2018-05-16T13:36:28.332+02:00",
+      "updated_at": "2018-05-16T13:36:28.332+02:00"
+    },
+    {
+      "href": "https://api-shipx-pl.easypack24.net/v1/mpks/2",
+      "id": 2,
+      "name": "Second",
+      "description": "Some New Description 2",
+      "created_at": "2018-05-16T13:33:03.745+02:00",
+      "updated_at": "2018-05-17T09:56:11.500+02:00"
+    },
+    {
+      "href": "https://api-shipx-pl.easypack24.net/v1/mpks/1",
+      "id": 1,
+      "name": "Third",
+      "description": "Some New Description 3",
+      "created_at": "2018-05-15T21:58:49.427+02:00",
+      "updated_at": "2018-05-15T22:31:04.316+02:00"
+    }
+  ]
+}
