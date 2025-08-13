@@ -1,0 +1,8 @@
+{
+  "href": "https://api-shipx-pl.easypack24.net/v1/mpks/1",
+  "id": 1,
+  "name": "Nazwa miejsca powstania kosztów",
+  "description": "Opis miejsca powstania kosztów",
+  "created_at": "2018-05-15T21:58:49.427+02:00",
+  "updated_at": "2018-05-17T10:35:59.644+02:00"
+}

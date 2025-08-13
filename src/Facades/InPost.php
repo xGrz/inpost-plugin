@@ -5,6 +5,7 @@ namespace Xgrz\InPost\Facades;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
 use Xgrz\InPost\ApiRequests\Label;
+use Xgrz\InPost\ApiRequests\CostCenter;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
@@ -49,6 +50,11 @@ class InPost
             ?->get($serviceName);
     }
 
+
+    public static function costCenters(): CostCenter
+    {
+        return (new CostCenter);
+    }
     /**
      * @throws ConnectionException
      */
