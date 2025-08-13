@@ -60,7 +60,7 @@ abstract class InPostTestCase extends TestCase
 
     public function fakeCostCenterCreateResponse(): array
     {
-        return ['*' => Http::response(self::fromFile('CostCenterCreateResponse.json'))];
+        return ['*' => Http::response(self::fromFile('CostCenterCreateResponse.json'), 201)];
     }
 
     public function fakeCostCenterDetailsResponse(): array
@@ -73,6 +73,15 @@ abstract class InPostTestCase extends TestCase
         return ['*' => Http::response(self::fromFile('CostCenterUpdateResponse.json'))];
     }
 
+    public function fakeTrackingResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('TrackingResponse.json'))];
+    }
+
+    public function fakeTrackingErrorResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('TrackingErrorResponse.json'), 404)];
+    }
 
 
 

@@ -9,7 +9,9 @@ use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
+use Xgrz\InPost\ApiRequests\Tracking;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
+use Xgrz\InPost\Exceptions\ShipXShipmentNotFoundException;
 use Xgrz\InPost\Models\ParcelTemplate;
 
 class InPost
@@ -78,5 +80,23 @@ class InPost
     public static function parcelCourierTemplates(): Collection
     {
         return collect(ParcelTemplate::all()->toArray());
+    }
+
+    /**
+     * @throws ShipXShipmentNotFoundException
+     * @throws ConnectionException
+     */
+    public static function trackingInfo(string $trackingNumber)
+    {
+        return (new Tracking)->get($trackingNumber);
+    }
+
+    /**
+     * @throws ShipXShipmentNotFoundException
+     * @throws ConnectionException
+     */
+    public static function trackingEvents(string $trackingNumber)
+    {
+        return (new Tracking)->get($trackingNumber)['tracking_details'] ?? [];
     }
 }

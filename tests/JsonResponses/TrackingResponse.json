@@ -1,0 +1,82 @@
+{
+  "tracking_number": "632085946340007012341234",
+  "service": "inpost_locker_standard",
+  "type": "inpost_locker_standard",
+  "status": "delivered",
+  "custom_attributes": {
+    "size": "A",
+    "target_machine_id": "KAT07A",
+    "target_machine_detail": {
+      "name": "KAT07A",
+      "opening_hours": "24/7",
+      "location_description": "Przy Instytucie Matematyki UŚ",
+      "location": {
+        "latitude": 50.26219,
+        "longitude": 19.02902
+      },
+      "address": {
+        "line1": "Bankowa 14",
+        "line2": "40-007 Katowice"
+      },
+      "type": [
+        "parcel_locker"
+      ],
+      "location247": true
+    },
+    "end_of_week_collection": false
+  },
+  "tracking_details": [
+    {
+      "origin_status": "DOR",
+      "status": "delivered",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-18T11:20:06.000+01:00"
+    },
+    {
+      "origin_status": "UWP",
+      "status": "ready_to_pickup",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-18T10:14:01.000+01:00"
+    },
+    {
+      "origin_status": "PDD_2",
+      "status": "out_for_delivery",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-18T08:37:45.000+01:00"
+    },
+    {
+      "origin_status": "PWO",
+      "status": "adopted_at_source_branch",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-18T05:56:59.000+01:00"
+    },
+    {
+      "origin_status": "WZO",
+      "status": "sent_from_source_branch",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-17T19:10:51.000+01:00"
+    },
+    {
+      "origin_status": "PWO",
+      "status": "adopted_at_source_branch",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-17T17:39:59.000+01:00"
+    },
+    {
+      "origin_status": "PPN",
+      "status": "confirmed",
+      "agency": null,
+      "location": null,
+      "datetime": "2023-12-17T12:58:39.000+01:00"
+    }
+  ],
+  "expected_flow": [],
+  "created_at": "2023-12-17T12:58:39.539+01:00",
+  "updated_at": "2023-12-18T11:20:07.005+01:00"
+}
