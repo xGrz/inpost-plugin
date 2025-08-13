@@ -1,0 +1,56 @@
+{
+  "href": "http://api-shipx-pl.easypack24.net/v1/organizations",
+  "count": 1,
+  "page": 1,
+  "per_page": 100,
+  "items": [
+    {
+      "href": "https://api-shipx-pl.easypack24.net/v1/organizations/1",
+      "id": 1,
+      "owner_id": 11,
+      "name": "ShpiX",
+      "tax_id": "PL1234567890",
+      "bank_account_number": null,
+      "carriers": [
+        "inpost_locker",
+        "inpost_letter",
+        "inpost_courier"
+      ],
+      "services": [
+        "inpost_locker_allegro",
+        "inpost_locker_pass_thru",
+        "inpost_locker_standard",
+        "inpost_letter_allegro",
+        "inpost_courier_palette",
+        "inpost_courier_allegro",
+        "inpost_courier_standard",
+        "inpost_courier_express_1000",
+        "inpost_courier_express_1200",
+        "inpost_courier_express_1700",
+        "inpost_courier_c2c",
+        "inpost_locker_standard_smart",
+        "inpost_locker_allegro_smart"
+      ],
+      "address": {
+        "id": 12345,
+        "street": "Pana Tadeusza",
+        "building_number": "4",
+        "line1": null,
+        "line2": null,
+        "city": "Kraków",
+        "post_code": "30-727",
+        "country_code": "PL"
+      },
+      "invoice_address": null,
+      "contact_person": {
+        "id": 1244,
+        "email": null,
+        "phone": null,
+        "first_name": null,
+        "last_name": null
+      },
+      "created_at": "2016-07-27T12:00:33.923+02:00",
+      "updated_at": "2023-10-30T12:59:09.555+01:00"
+    }
+  ]
+}

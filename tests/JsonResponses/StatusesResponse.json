@@ -1,0 +1,15 @@
+{
+  "href": "https://api-shipx-pl.easypack24.net/v1/statuses",
+  "items": [
+    {
+      "name": "confirmed",
+      "title": "Przygotowana przez Nadawcę",
+      "description": "Nadawca poinformował nas, że przygotował paczkę do nadania. Podróż paczki jeszcze się nie rozpoczęła."
+    },
+    {
+      "name": "stored_by_sender",
+      "title": "Umieszczona w Paczkomacie Nadawczym",
+      "description": "Paczka oczekuje na wyjęcie z Paczkomatu przez doręczyciela. Stąd trafi do najbliższego oddziału InPost i wyruszy w trasę do Paczkomatu odbiorczego. Na tym etapie Odbiorca otrzyma e-mail informujący o wyruszeniu przesyłki w drogę."
+    }
+  ]
+}
