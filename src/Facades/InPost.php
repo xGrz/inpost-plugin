@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Xgrz\InPost\ApiRequests\CostCenter;
 use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
+use Xgrz\InPost\ApiRequests\SendingMethods;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
 use Xgrz\InPost\ApiRequests\Tracking;
@@ -53,7 +54,6 @@ class InPost
             ?->get($serviceName);
     }
 
-
     public static function costCenters(): CostCenter
     {
         return (new CostCenter);
@@ -99,4 +99,10 @@ class InPost
     {
         return (new Tracking)->get($trackingNumber)['tracking_details'] ?? [];
     }
+
+    public static function sendingMethods()
+    {
+        return (new SendingMethods())->get();
+    }
+
 }

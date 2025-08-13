@@ -83,6 +83,11 @@ abstract class InPostTestCase extends TestCase
         return ['*' => Http::response(self::fromFile('TrackingErrorResponse.json'), 404)];
     }
 
+    public function fakeSendingMethodsResponse(): array
+    {
+        return ['*' => Http::response(self::fromFile('SendingMethodsResponse.json'))];
+    }
+
 
 
     protected function fromFile(string $file): array

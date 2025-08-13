@@ -1,0 +1,37 @@
+[
+  {
+    "id": "parcel_locker",
+    "name": "Nadanie w automacie Paczkomat",
+    "description": "Nadam przesyłkę w automacie Paczkomat"
+  },
+  {
+    "id": "pok",
+    "name": "Nadanie w POK",
+    "description": "Nadam przesyłkę w Punkcie Obsługi Klienta"
+  },
+  {
+    "id": "pop",
+    "name": "Nadanie w POP",
+    "description": "Nadam przesyłkę w Punkcie Obsługi Przesyłek"
+  },
+  {
+    "id": "courier_pok",
+    "name": "Nadanie w POK",
+    "description": "Nadam przesyłkę w Punkcie Obsługi Klienta"
+  },
+  {
+    "id": "branch",
+    "name": "Nadanie w Oddziale",
+    "description": "Dostarczę przesyłkę do Oddziału InPost"
+  },
+  {
+    "id": "dispatch_order",
+    "name": "Odbiór przez Kuriera",
+    "description": "Utworzę zelecenie odbioru - przesyłkę odbierze Kurier InPost"
+  },
+  {
+    "id": "any_point",
+    "name": "Nadanie w dowolnym punkcie",
+    "description": "Nadam przesyłkę w dowolnym automacie Paczkomat lub PaczkoPunkcie"
+  }
+]
