@@ -27,6 +27,8 @@ abstract class InPostTestCase extends TestCase
         $app['config']->set('inpost.cache.statuses.ttl', 86400);
         $app['config']->set('inpost.cache.services.key', 'inpost-services');
         $app['config']->set('inpost.cache.services.ttl', 86400);
+        $app['config']->set('inpost.label_type', 'A6');
+        $app['config']->set('inpost.label_format', 'pdf');
     }
 
     protected function getPackageProviders($app): array

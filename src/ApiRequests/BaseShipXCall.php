@@ -2,6 +2,7 @@
 
 namespace Xgrz\InPost\ApiRequests;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Collection;
@@ -84,6 +85,9 @@ abstract class BaseShipXCall
         return self::baseUrl() . $this->getEndpoint();
     }
 
+    /**
+     * @throws ConnectionException
+     */
     protected function getCall()
     {
 
@@ -94,6 +98,9 @@ abstract class BaseShipXCall
             ->json();
     }
 
+    /**
+     * @throws ConnectionException
+     */
     protected function getFile()
     {
         return $this
@@ -103,6 +110,9 @@ abstract class BaseShipXCall
             ->getContents();
     }
 
+    /**
+     * @throws ConnectionException
+     */
     protected function postCall()
     {
         return $this
@@ -111,6 +121,9 @@ abstract class BaseShipXCall
             ->json();
     }
 
+    /**
+     * @throws ConnectionException
+     */
     protected function putCall()
     {
         return $this

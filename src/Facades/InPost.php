@@ -2,7 +2,9 @@
 
 namespace Xgrz\InPost\Facades;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
+use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
@@ -47,5 +49,11 @@ class InPost
             ?->get($serviceName);
     }
 
-
+    /**
+     * @throws ConnectionException
+     */
+    public static function label(string $inPostShipmentId): string
+    {
+        return (new Label())->get($inPostShipmentId);
+    }
 }

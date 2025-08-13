@@ -17,4 +17,8 @@ return [
             'ttl' => 86400,
         ]
     ],
+    // InPost allow do download 'normal' or 'A6' label
+    'label_type' => 'A6',
+    // InPost allow do download 'pdf', 'zpl' or 'epl' label
+    'label_format' => 'pdf',
 ];
