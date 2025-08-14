@@ -1,0 +1,213 @@
+{
+  "href": "https://api-pl-points.easypack24.net/v1/points",
+  "count": 24797,
+  "page": 1,
+  "per_page": 25,
+  "total_pages": 992,
+  "items": [
+    {
+      "href": "https://api-pl-points.easypack24.net/v1/points/ADA01M",
+      "name": "ADA01M",
+      "type": [
+        "parcel_locker"
+      ],
+      "status": "Operating",
+      "location": {
+        "longitude": 22.26405,
+        "latitude": 51.73834
+      },
+      "location_type": "Outdoor",
+      "location_date": null,
+      "location_description": "Przy sklepie Lewiatan",
+      "location_description_1": null,
+      "location_description_2": null,
+      "distance": null,
+      "opening_hours": "24/7",
+      "address": {
+        "line1": "Kościuszki 27",
+        "line2": "21-412 Adamów"
+      },
+      "address_details": {
+        "city": "Adamów",
+        "province": "lubelskie",
+        "post_code": "21-412",
+        "street": "Kościuszki",
+        "building_number": "27",
+        "flat_number": null
+      },
+      "phone_number": null,
+      "payment_point_descr": "Płatność apką InPost oraz PayByLink",
+      "functions": [
+        "allegro_courier_collect",
+        "allegro_courier_reverse_return_send",
+        "allegro_courier_send",
+        "allegro_letter_reverse_return_send",
+        "allegro_letter_send",
+        "allegro_parcel_collect",
+        "allegro_parcel_reverse_return_send",
+        "allegro_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send"
+      ],
+      "partner_id": 0,
+      "is_next": false,
+      "payment_available": true,
+      "payment_type": {
+        "0": "Payments are not supported"
+      },
+      "virtual": "0",
+      "recommended_low_interest_box_machines_list": null,
+      "apm_doubled": null,
+      "location_247": true,
+      "operating_hours_extended": {
+        "customer": null
+      },
+      "agency": "IPM4633224",
+      "image_url": "https://static.easypack24.net/points/pl/images/ADA01M.jpg",
+      "easy_access_zone": true,
+      "air_index_level": null,
+      "physical_type_mapped": "004",
+      "physical_type_description": null
+    },
+    {
+      "href": "https://api-pl-points.easypack24.net/v1/points/BDA012",
+      "name": "BDA012",
+      "type": [
+        "parcel_locker"
+      ],
+      "status": "Operating",
+      "location": {
+        "longitude": 22.26405,
+        "latitude": 51.73834
+      },
+      "location_type": "Outdoor",
+      "location_date": null,
+      "location_description": "Przy sklepie Lewiatan",
+      "location_description_1": null,
+      "location_description_2": null,
+      "distance": null,
+      "opening_hours": "24/7",
+      "address": {
+        "line1": "Kościuszki 27",
+        "line2": "21-412 Adamów"
+      },
+      "address_details": {
+        "city": "Adamów",
+        "province": "lubelskie",
+        "post_code": "21-412",
+        "street": "Kościuszki",
+        "building_number": "27",
+        "flat_number": null
+      },
+      "phone_number": null,
+      "payment_point_descr": "Płatność apką InPost oraz PayByLink",
+      "functions": [
+        "allegro_courier_collect",
+        "allegro_courier_reverse_return_send",
+        "allegro_courier_send",
+        "allegro_letter_reverse_return_send",
+        "allegro_letter_send",
+        "allegro_parcel_collect",
+        "allegro_parcel_reverse_return_send",
+        "allegro_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send"
+      ],
+      "partner_id": 0,
+      "is_next": false,
+      "payment_available": true,
+      "payment_type": {
+        "0": "Payments are not supported"
+      },
+      "virtual": "0",
+      "recommended_low_interest_box_machines_list": null,
+      "apm_doubled": null,
+      "location_247": true,
+      "operating_hours_extended": {
+        "customer": null
+      },
+      "agency": "IPM4633224",
+      "image_url": "https://static.easypack24.net/points/pl/images/BDA012.jpg",
+      "easy_access_zone": true,
+      "air_index_level": null,
+      "physical_type_mapped": "004",
+      "physical_type_description": null
+    },
+    {
+      "href": "https://api-pl-points.easypack24.net/v1/points/CDA012",
+      "name": "CDA012",
+      "type": [
+        "parcel_locker"
+      ],
+      "status": "Operating",
+      "location": {
+        "longitude": 22.26405,
+        "latitude": 51.73834
+      },
+      "location_type": "Outdoor",
+      "location_date": null,
+      "location_description": "Przy sklepie Lewiatan",
+      "location_description_1": null,
+      "location_description_2": null,
+      "distance": null,
+      "opening_hours": "24/7",
+      "address": {
+        "line1": "Kościuszki 27",
+        "line2": "21-412 Adamów"
+      },
+      "address_details": {
+        "city": "Adamów",
+        "province": "lubelskie",
+        "post_code": "21-412",
+        "street": "Kościuszki",
+        "building_number": "27",
+        "flat_number": null
+      },
+      "phone_number": null,
+      "payment_point_descr": "Płatność apką InPost oraz PayByLink",
+      "functions": [
+        "allegro_courier_collect",
+        "allegro_courier_reverse_return_send",
+        "allegro_courier_send",
+        "allegro_letter_reverse_return_send",
+        "allegro_letter_send",
+        "allegro_parcel_collect",
+        "allegro_parcel_reverse_return_send",
+        "allegro_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send"
+      ],
+      "partner_id": 0,
+      "is_next": false,
+      "payment_available": true,
+      "payment_type": {
+        "0": "Payments are not supported"
+      },
+      "virtual": "0",
+      "recommended_low_interest_box_machines_list": null,
+      "apm_doubled": null,
+      "location_247": true,
+      "operating_hours_extended": {
+        "customer": null
+      },
+      "agency": "IPM4633224",
+      "image_url": "https://static.easypack24.net/points/pl/images/CDA012.jpg",
+      "easy_access_zone": true,
+      "air_index_level": null,
+      "physical_type_mapped": "004",
+      "physical_type_description": null
+    }
+  ]
+}

@@ -85,6 +85,13 @@ abstract class BaseShipXCall
         return self::baseUrl() . $this->getEndpoint();
     }
 
+    public function buildCommaSeparatedPayload(): array
+    {
+        return collect($this->payload)
+            ->map(fn($value) => is_array($value) ? implode(',', $value) : $value)
+            ->toArray();
+    }
+
     /**
      * @throws ConnectionException
      */
@@ -93,7 +100,7 @@ abstract class BaseShipXCall
 
         return $this
             ->baseCall()
-            ->withQueryParameters($this->payload)
+            ->withQueryParameters($this->buildCommaSeparatedPayload())
             ->get($this->getFullEndpoint())
             ->json();
     }

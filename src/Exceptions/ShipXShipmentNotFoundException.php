@@ -2,7 +2,7 @@
 
 namespace Xgrz\InPost\Exceptions;
 
-class ShipXShipmentNotFoundException extends \Exception
+class ShipXShipmentNotFoundException extends ShipXException
 {
 
     public string $apiError = '';

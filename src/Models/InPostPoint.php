@@ -1,0 +1,52 @@
+<?php
+
+namespace Xgrz\InPost\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Xgrz\InPost\Casts\PostCodeCast;
+use Xgrz\InPost\Enums\PointStatus;
+
+class InPostPoint extends Model
+{
+    /**
+     * @var int|null $distance allow dynamically setting distance to point - not stored in DB
+     */
+    public ?int $distance = NULL;
+    protected $table = 'inpost_points';
+    protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'longitude' => 'float',
+            'latitude' => 'float',
+            'status' => PointStatus::class,
+            'functions' => 'array',
+            'location_247' => 'boolean',
+            'payment_available' => 'boolean',
+            'payment_type' => 'array',
+            'post_code' => PostCodeCast::class,
+        ];
+    }
+    public function scopeName(Builder $query, string $name): void
+    {
+        $query->where('name', $name);
+    }
+
+    public function scopeOperating(Builder $query, PointStatus|true $operating = true): void
+    {
+        if ($operating === true) {
+            $operating = PointStatus::OPERATING;
+        }
+        $query->where('operating', $operating);
+    }
+
+
+    public function isParcelLocker(): bool
+    {
+        return ! empty($this->physical_type_mapped);
+    }
+
+
+}

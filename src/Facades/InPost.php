@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Xgrz\InPost\ApiRequests\CostCenter;
 use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
+use Xgrz\InPost\ApiRequests\Points;
 use Xgrz\InPost\ApiRequests\SendingMethods;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
@@ -104,5 +105,11 @@ class InPost
     {
         return (new SendingMethods())->get();
     }
+
+    public static function points(array $search = [])
+    {
+        return (new Points())->get($search);
+    }
+
 
 }
