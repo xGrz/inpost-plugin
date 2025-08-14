@@ -15,6 +15,7 @@ use Xgrz\InPost\ApiRequests\Tracking;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Exceptions\ShipXShipmentNotFoundException;
 use Xgrz\InPost\Models\ParcelTemplate;
+use Xgrz\InPost\Services\PointSearchService;
 
 class InPost
 {
@@ -109,6 +110,11 @@ class InPost
     public static function points(array $search = [])
     {
         return (new Points())->get($search);
+    }
+
+    public static function pointSearch(?string $query): Collection
+    {
+        return PointSearchService::make($query);
     }
 
 

@@ -9,11 +9,7 @@ use Xgrz\InPost\Enums\PointStatus;
 
 class InPostPoint extends Model
 {
-    /**
-     * @var int|null $distance allow dynamically setting distance to point - not stored in DB
-     */
-    public ?int $distance = NULL;
-    protected $table = 'inpost_points';
+    protected $table = 'in_post_points'; // todo: backto "inpost_points" after dev
     protected $guarded = [];
 
     protected function casts(): array
@@ -39,14 +35,11 @@ class InPostPoint extends Model
         if ($operating === true) {
             $operating = PointStatus::OPERATING;
         }
-        $query->where('operating', $operating);
+        $query->where('status', $operating);
     }
-
 
     public function isParcelLocker(): bool
     {
         return ! empty($this->physical_type_mapped);
     }
-
-
 }

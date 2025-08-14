@@ -4,6 +4,7 @@ namespace Xgrz\InPost\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Xgrz\InPost\Exceptions\ShipXInvalidPostCodeException;
 
 class PostCodeCast implements CastsAttributes
@@ -14,10 +15,7 @@ class PostCodeCast implements CastsAttributes
         if (! is_numeric($value)) return $value;
         if (str($value)->length() != 5) return $value;
 
-        return str($value)
-            ->substr(0, 2)
-            ->append('-')
-            ->append(str($value)->substr(2, 3));
+        return self::format($value);
     }
 
     /**
@@ -25,10 +23,36 @@ class PostCodeCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {
-        $formattedValue = str($value)->replaceMatches('/\D+/', '');
-        if ($formattedValue->length() != 5) {
+        if (! self::isPostCode($value)) {
             throw new ShipXInvalidPostCodeException('Invalid postal code: [' . $value . ']');
         }
-        return $formattedValue->toString();
+        return self::toNumeric($value);
+    }
+
+    public static function isPostCode(string $value): bool
+    {
+        return Str::of($value)->replaceMatches('/\D+/', '')->length() == 5;
+    }
+
+    public static function toNumeric(string $value): ?string
+    {
+        $numericValue = str($value)->replaceMatches('/\D+/', '');
+        return $numericValue->length() == 5
+            ? $numericValue->toString()
+            : NULL;
+    }
+
+    public static function format(string $value): ?string
+    {
+        if (! self::isPostCode($value)) {
+            return NULL;
+        }
+
+        $value = self::toNumeric($value);
+
+        return str(self::toNumeric($value))
+            ->substr(0, 2)
+            ->append('-')
+            ->append(str($value)->substr(2, 3));
     }
 }
