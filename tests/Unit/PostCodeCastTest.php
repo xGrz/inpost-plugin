@@ -26,7 +26,15 @@ class PostCodeCastTest extends InPostTestCase
             '01234',
             $cast->set($model, 'post_code', '01234', [])
         );
-        // todo: add non-numeric test case
+    }
+
+    public function test_invalid_post_code_throws_exception()
+    {
+        $this->expectException(\Xgrz\InPost\Exceptions\ShipXInvalidPostCodeException::class);
+        $cast = new PostCodeCast();
+        $model = new InPostPoint();
+
+        $cast->set($model, 'post_code', 'A2-345', []);
     }
 
     public function test_can_cast_postal_code_to_display_format()
