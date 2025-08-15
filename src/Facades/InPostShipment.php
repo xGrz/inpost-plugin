@@ -4,6 +4,8 @@ namespace Xgrz\InPost\Facades;
 
 use Xgrz\InPost\DTOs\Address\Receiver;
 use Xgrz\InPost\DTOs\Address\Sender;
+use Xgrz\InPost\DTOs\CashOnDelivery\CashOnDelivery;
+use Xgrz\InPost\DTOs\Insurance\Insurance;
 use Xgrz\InPost\DTOs\Parcels\Parcels;
 
 class InPostShipment
@@ -14,9 +16,9 @@ class InPostShipment
 
     // custom_attributes
 
-    // cod
+    public CashOnDelivery $cash_on_delivery;
 
-    // insurance
+    public Insurance $insurance;
 
     // reference
 
@@ -34,6 +36,8 @@ class InPostShipment
     {
         $this->receiver = new Receiver();
         $this->parcels = Parcels::make();
+        $this->cash_on_delivery = new CashOnDelivery();
+        $this->insurance = new Insurance();
     }
 
     public function payload(): array
@@ -42,6 +46,8 @@ class InPostShipment
             'sender' => $this->sender?->payload(),
             'receiver' => $this->receiver->payload(),
             'parcels' => $this->parcels->payload(),
+            'cod' => $this->cash_on_delivery->payload(),
+            'insurance' => $this->insurance->payload(),
         ];
     }
 }
