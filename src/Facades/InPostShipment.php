@@ -7,7 +7,7 @@ use Xgrz\InPost\DTOs\Address\Sender;
 
 class InPostShipment
 {
-    public Sender $sender;
+    public ?Sender $sender = NULL; // if not provided, will be set default InPost data
     public Receiver $receiver;
 
     // parcels
@@ -29,4 +29,9 @@ class InPostShipment
     // mpk
 
     // comments
+
+    public function __construct()
+    {
+        $this->receiver = new Receiver();
+    }
 }

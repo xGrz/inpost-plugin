@@ -115,4 +115,10 @@ class AddressStructTest extends InPostTestCase
         $this->assertEquals('12-345', $payload['address']['post_code']);
     }
 
+    public function test_empty_address_return_null()
+    {
+        $sender = new Sender();
+        $this->assertNull($sender->payload());;
+    }
+
 }

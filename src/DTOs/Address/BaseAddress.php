@@ -89,7 +89,7 @@ abstract class BaseAddress
         return str($name)->trim()->toString();
     }
 
-    public function payload(): array
+    public function payload(): ?array
     {
         $payload = array_filter($this->meta, fn($value) => ! is_null($value));
         $address = array_filter($this->address, fn($value) => ! is_null($value));
@@ -102,7 +102,9 @@ abstract class BaseAddress
             }
             $payload['address'] = $address;
         }
-        return $payload;
+        return count($payload)
+            ? $payload
+            : NULL;
     }
 
 }
