@@ -49,6 +49,21 @@ enum ParcelLockerTemplate: string
         };
     }
 
+    public function getLength(): int|float
+    {
+        return $this->getDimensions()[0];
+    }
+
+    public function getWidth(): int|float
+    {
+        return $this->getDimensions()[1];
+    }
+
+    public function getHeight(): int|float
+    {
+        return $this->getDimensions()[2];
+    }
+
     public function toArray(): array
     {
         return [

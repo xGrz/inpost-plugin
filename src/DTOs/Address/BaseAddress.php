@@ -4,6 +4,7 @@ namespace Xgrz\InPost\DTOs\Address;
 
 use Xgrz\InPost\Casts\PostCodeCast;
 use Xgrz\InPost\Enums\AddressType;
+use Xgrz\InPost\Interfaces\PayloadInterface;
 
 /**
  *
@@ -19,7 +20,7 @@ use Xgrz\InPost\Enums\AddressType;
  * @property ?string $email           Email
  * @property ?string $phone           Phone
  */
-abstract class BaseAddress
+abstract class BaseAddress implements PayloadInterface
 {
     protected AddressType $type;
     protected array $meta = [
