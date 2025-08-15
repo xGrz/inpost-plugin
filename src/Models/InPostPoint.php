@@ -9,7 +9,7 @@ use Xgrz\InPost\Enums\PointStatus;
 
 class InPostPoint extends Model
 {
-    protected $table = 'in_post_points'; // todo: backto "inpost_points" after dev
+    protected $table = 'inpost_points';
     protected $guarded = [];
 
     protected function casts(): array
