@@ -37,5 +37,26 @@ class InsuranceTest extends InPostTestCase
         ], $insurance->payload());
     }
 
-    //todo: add toArray test
+    public function test_insurance_return_array_of_values()
+    {
+        $insurance = new Insurance();
+        $insurance->amount = 12.45;
+        $insurance->currency = 'USD';
+
+        $this->assertIsArray($insurance->toArray());
+        $this->assertArrayHasKey('insurance', $insurance->toArray());
+        $this->assertArrayHasKey('insurance_currency', $insurance->toArray());
+        $this->assertEquals(12.45, $insurance->toArray()['insurance']);
+        $this->assertEquals('USD', $insurance->toArray()['insurance_currency']);
+    }
+
+    public function test_insurance_return_array_with_null_values_on_empty()
+    {
+        $insurance = new Insurance();
+        $this->assertIsArray($insurance->toArray());
+        $this->assertArrayHasKey('insurance', $insurance->toArray());
+        $this->assertArrayHasKey('insurance_currency', $insurance->toArray());
+        $this->assertNull($insurance->toArray()['insurance']);
+        $this->assertNull($insurance->toArray()['insurance_currency']);
+    }
 }

@@ -38,5 +38,27 @@ class CashOnDeliveryTest extends InPostTestCase
     }
 
 
-    //todo: add toArray test
+    public function test_cod_return_array_of_values()
+    {
+        $cod = new CashOnDelivery();
+        $cod->amount = 12.45;
+        $cod->currency = 'USD';
+
+        $this->assertIsArray($cod->toArray());
+        $this->assertArrayHasKey('cod', $cod->toArray());
+        $this->assertArrayHasKey('cod_currency', $cod->toArray());
+        $this->assertEquals(12.45, $cod->toArray()['cod']);
+        $this->assertEquals('USD', $cod->toArray()['cod_currency']);
+    }
+
+    public function test_cod_return_array_with_null_values_on_empty()
+    {
+        $cod = new CashOnDelivery();
+        $this->assertIsArray($cod->toArray());
+        $this->assertArrayHasKey('cod', $cod->toArray());
+        $this->assertArrayHasKey('cod_currency', $cod->toArray());
+        $this->assertNull($cod->toArray()['cod']);
+        $this->assertNull($cod->toArray()['cod_currency']);
+    }
+
 }
