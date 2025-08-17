@@ -40,20 +40,16 @@ class InPost
             ?->get($statusName);
     }
 
-    public static function services()
+    public static function services(): Collection
     {
-        return (new Services)->get();
+        return collect((new Services)->get() ?? []);
     }
 
     public static function getServiceDescription(string $serviceName): ?array
     {
-        return cache()
-            ->remember(
-                config('inpost.cache.services.key', 'inpost-services'),
-                config('inpost.cache.services.ttl', 86400),
-                fn(): Collection => collect(self::services())->keyBy('id')
-            )
-            ?->get($serviceName);
+        return self::services()
+            ->keyBy('id')
+            ->get($serviceName);
     }
 
     public static function costCenters(): CostCenter

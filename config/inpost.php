@@ -12,10 +12,6 @@ return [
             'key' => 'inpost-statuses',
             'ttl' => 86400,
         ],
-        'services' => [
-            'key' => 'inpost-services',
-            'ttl' => 86400,
-        ]
     ],
     // InPost allow do download 'normal' or 'A6' label
     'label_type' => 'A6',

@@ -32,8 +32,6 @@ class ServicesTest extends InPostTestCase
         $this->assertEquals('inpost_locker_standard', $s2['id']);
         $this->assertEquals('inpost_courier_standard', $s3['id']);
 
-        // This is checking the application is caching statuses
-        Http::assertSentCount(1);
     }
 
 
