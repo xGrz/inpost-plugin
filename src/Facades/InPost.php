@@ -26,18 +26,17 @@ class InPost
 
     public static function statuses()
     {
-        return (new Statuses)->get();
+        return cache()
+            ->remember(
+                config('inpost.cache.statuses.key', 'inpost-statuses'),
+                config('inpost.cache.statuses.ttl', 60),
+                fn() => collect((new Statuses)->get())
+            );
     }
 
     public static function getStatusDescription(string $statusName): ?array
     {
-        return cache()
-            ->remember(
-                config('inpost.cache.statuses.key', 'inpost-statuses'),
-                config('inpost.cache.statuses.ttl', 86400),
-                fn(): Collection => collect(self::statuses())->keyBy('name')
-            )
-            ?->get($statusName);
+        return self::statuses()->keyBy('name')->get($statusName);
     }
 
     public static function services(): Collection
