@@ -9,7 +9,6 @@ use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Points;
 use Xgrz\InPost\ApiRequests\SendingMethods;
-use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
 use Xgrz\InPost\ApiRequests\Tracking;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
@@ -39,16 +38,9 @@ class InPost
         return self::statuses()->keyBy('name')->get($statusName);
     }
 
-    public static function services(): Collection
+    public static function services(): InPostServices
     {
-        return collect((new Services)->get() ?? []);
-    }
-
-    public static function getServiceDescription(string $serviceName): ?array
-    {
-        return self::services()
-            ->keyBy('id')
-            ->get($serviceName);
+        return new InPostServices();
     }
 
     public static function costCenters(): CostCenter
