@@ -1,0 +1,9 @@
+{
+  "event_ts": "2020-03-20 15:08:06 +0100",
+  "event": "shipment_confirmed",
+  "organization_id": 1,
+  "payload": {
+    "shipment_id": 49,
+    "tracking_number": "602677439331630337653846"
+  }
+}

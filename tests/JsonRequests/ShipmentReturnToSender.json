@@ -1,0 +1,11 @@
+{
+  "event_ts": "2023-05-23 14:56:01 +0200",
+  "event": "shipment_status_changed",
+  "organization_id": 12345,
+  "payload": {
+    "shipment_id": 709709700,
+    "status": "returned_to_sender",
+    "tracking_number": "630055758325001130630004",
+    "return_tracking_number": "520107015145404000176000"
+  }
+}

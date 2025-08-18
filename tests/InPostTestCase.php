@@ -94,6 +94,10 @@ abstract class InPostTestCase extends TestCase
         return ['*' => Http::response(self::fromFile('PointsResponse.json'))];
     }
 
+    public function fakeRequestPayload($fileName): array
+    {
+        return json_decode(file_get_contents(__DIR__ . '/JsonRequests/' . $fileName), true);
+    }
 
 
     protected function fromFile(string $file): array
