@@ -6,5 +6,10 @@
         <entry key="LaravelIdeaSettings.switchedToSrcFolder" value="true" />
       </map>
     </option>
+    <option name="generationStringOptionValues">
+      <map>
+        <entry key="createController.singleAction" value="1" />
+      </map>
+    </option>
   </component>
 </project>

@@ -17,12 +17,10 @@ class InPostShipment
     public CashOnDelivery $cash_on_delivery;
     public Insurance $insurance;
     public ShipmentService $service;
-
     public ?string $reference = NULL;
     public bool $is_return = false;
     public ?string $mpk = NULL; // todo: fix this; -> add check if mpk exists
     public ?string $comments = NULL;
-
     public bool $only_choice_of_offer = false;
 
     public function __construct()
