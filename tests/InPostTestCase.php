@@ -29,6 +29,7 @@ abstract class InPostTestCase extends TestCase
         $app['config']->set('inpost.cache.services.ttl', 86400);
         $app['config']->set('inpost.label_type', 'A6');
         $app['config']->set('inpost.label_format', 'pdf');
+        $app['config']->set('inpost.webhook_ip_restriction', '91.216.25.0/24');
     }
 
     protected function getPackageProviders($app): array

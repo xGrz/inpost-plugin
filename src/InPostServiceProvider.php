@@ -2,7 +2,9 @@
 
 namespace Xgrz\InPost;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Xgrz\InPost\Http\Middleware\IpAddressRestrictionMiddleware;
 
 class InPostServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,8 @@ class InPostServiceProvider extends ServiceProvider
             [__DIR__ . '/../config/inpost.php' => config_path('inpost.php')],
             'inpost-config'
         );
+        Route::aliasMiddleware('inpost-ip-restriction', IpAddressRestrictionMiddleware::class);
+
     }
 
     private function setupMigrations(): void

@@ -3,15 +3,26 @@
 namespace Xgrz\InPost\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Xgrz\InPost\Models\InPostShipmentNumber;
 
 class ShipXWebhookController
 {
-    public function __invoke(Request $request)
+    public function index()
+    {
+        return response('', 200);
+    }
+
+    public function consumeWebhook(Request $request)
     {
         if ($this->processEvent($request->toArray())) {
             return response('Confirmed', 200);
         }
+
+        Log::alert(
+            'Unknown event: ' . $request->get('event'),
+            $request->toArray()
+        );
 
         abort(404);
     }
