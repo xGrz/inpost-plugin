@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('in_post_shipment_numbers', function(Blueprint $table) {
-            $table->string('number')->primary();
-            $table->string('tracking')->nullable();
+        Schema::create('inpost_shipment_numbers', function(Blueprint $table) {
+            $table->string('inpost_ident')->primary();
+            $table->string('tracking_number')->nullable();
+            $table->string('return_tracking_number')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
@@ -17,6 +18,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('in_post_shipment_numbers');
+        Schema::dropIfExists('inpost_shipment_numbers');
     }
 };
