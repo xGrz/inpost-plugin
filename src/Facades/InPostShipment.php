@@ -12,7 +12,7 @@ use Xgrz\InPost\Exceptions\ShipXException;
 
 class InPostShipment
 {
-    public ?Sender $sender = NULL; // if not provided, will be set default InPost data
+    public Sender $sender; // if not provided, will be set default InPost data
     public readonly Receiver $receiver;
     public readonly Parcels $parcels;
     public readonly CashOnDelivery $cash_on_delivery;
@@ -26,6 +26,7 @@ class InPostShipment
 
     public function __construct()
     {
+        $this->sender = new Sender();
         $this->receiver = new Receiver();
         $this->parcels = Parcels::make();
         $this->cash_on_delivery = new CashOnDelivery();
@@ -68,7 +69,7 @@ class InPostShipment
             ->filter(fn($costCenter) => $costCenter['name'] === $costCenterName)
             ->first();
 
-        if (!$exists) {
+        if (! $exists) {
             throw new ShipXException("Cost Center with name [$costCenterName] not found.");
         }
 
@@ -93,6 +94,32 @@ class InPostShipment
                 'mpk' => $this->mpk,
                 'comments' => $this->comments,
             ] + $this->service->payload();
+    }
+
+    public function toArray(): array
+    {
+        $data = [];
+        $sender = $this->sender->toArray();
+
+        if ($sender) {
+            $data['sender'] = $sender;
+        }
+
+        $data += [
+            'receiver' => $this->receiver->toArray(),
+            'parcels' => $this->parcels->toArray(),
+            'reference' => $this->reference,
+            'is_return' => $this->is_return,
+            'comment' => $this->comments,
+            'only_choice_of_offer' => $this->only_choice_of_offer,
+            'cost_center' => $this->mpk,
+        ];
+
+        $data += $this->service->toArray();
+        $data += $this->cash_on_delivery->toArray();
+        $data += $this->insurance->toArray();
+
+        return $data;
     }
 
     private function applyInsuranceCostSaver(): void

@@ -212,7 +212,75 @@ class ShipmentFacadeTest extends InPostTestCase
 
     public function testShipmentToArray()
     {
+        $senderData = [
+            'company_name' => 'Funny Company',
+            'first_name' => 'Jeremy',
+            'last_name' => 'Clarkson',
+            'phone' => '700700700',
+            'email' => 'jc@example.com',
+            'street' => 'Aleja Testowa',
+            'building_number' => '11B',
+            'city' => 'Warsaw',
+            'post_code' => '01001',
+        ];
+        $receiverData = [
+            'company_name' => 'InPost Sp. z o.o.',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'inpost@example.com',
+            'phone' => '600123456',
+            'street' => 'Testowa',
+            'building_number' => '1A',
+            'city' => 'Warsaw',
+            'post_code' => '00001',
+        ];
 
+        $s = new InPostShipment();
+        foreach ($senderData as $key => $value) {
+            $s->sender->$key = $value;
+        }
+        foreach ($receiverData as $key => $value) {
+            $s->receiver->$key = $value;
+        }
+
+        $s->parcels->add(CustomParcel::make(40, 20, 10, 5, 2, true));
+        $s->insurance->set(600);
+        $s->cash_on_delivery->set(1100);
+        $s->service->setService('inpost_courier_standard')
+            ->additionalService('SMS')
+            ->additionalService('Email')
+            ->targetPoint('WAW375A');
+        $s->reference('Order #5000');
+        $s->comment('This is a test shipment');
+        $s->costCenter($this->costsCenter['name']);
+        $s->setReturn();
+        $s->onlyChoiceOfOffer();
+
+        $arr = $s->toArray();
+        $this->assertIsArray($arr);
+        $this->assertEquals($senderData + ['country_code' => 'PL'], $arr['sender']);
+        $this->assertEquals($receiverData + ['country_code' => 'PL'], $arr['receiver']);
+
+        $this->assertCount(1, $arr['parcels']);
+        $this->assertEquals(40, $arr['parcels'][0]['width']);
+        $this->assertEquals(20, $arr['parcels'][0]['height']);
+        $this->assertEquals(10, $arr['parcels'][0]['length']);
+        $this->assertEquals(5, $arr['parcels'][0]['weight']);
+        $this->assertSame(2, $arr['parcels'][0]['quantity']);;
+        $this->assertTrue($arr['parcels'][0]['non_standard']);
+
+        $this->assertEquals('inpost_courier_standard', $arr['service']);
+        $this->assertEquals(['sms', 'email'], $arr['additional_services']);
+        $this->assertEquals('WAW375A', $arr['target_point']);
+        $this->assertEquals('Order #5000', $arr['reference']);
+        $this->assertEquals('This is a test shipment', $arr['comment']);
+        $this->assertEquals('Second', $arr['cost_center']);
+        $this->assertTrue($arr['is_return']);
+        $this->assertTrue($arr['only_choice_of_offer']);
+        $this->assertEquals(600, $arr['insurance']);
+        $this->assertEquals('PLN', $arr['insurance_currency']);
+        $this->assertEquals(1100, $arr['cod']);
+        $this->assertEquals('PLN', $arr['cod_currency']);
     }
 
 }

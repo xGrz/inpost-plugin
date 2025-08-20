@@ -108,4 +108,15 @@ abstract class BaseAddress implements PayloadInterface
             : NULL;
     }
 
+    public function toArray(): ?array
+    {
+        $flatAddress = $this->meta + $this->address;
+        $cleanAddress = array_filter($flatAddress, fn($value) => ! is_null($value));
+
+        if (empty($this->address['country_code'])) $this->address['country_code'] = 'PL';
+        return count($cleanAddress) === 0
+            ? NULL
+            : $this->meta + $this->address;
+    }
+
 }

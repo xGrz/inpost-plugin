@@ -76,21 +76,20 @@ class ShipmentService
         return $this;
     }
 
-//    public function sendingMethod(?string $sendingMethod): static
-//    {
-//        // todo: verify is this needed
-//        if ($sendingMethod) {
-//            $this->customAttributes['sending_method'] = $sendingMethod;
-//        }
-//
-//        return $this;
-//    }
-
     public function payload(array $basePayload = []): array
     {
         $basePayload['service'] = $this->service?->id;
         $basePayload['additional_services'] = $this->additionalServices;
         $basePayload['custom_attributes'] = $this->customAttributes;
         return $basePayload;
+    }
+
+    public function toArray()
+    {
+        return [
+            'service' => $this->service?->id,
+            'additional_services' => $this->additionalServices,
+            'target_point' => $this->customAttributes['target_point'] ?? NULL,
+        ];
     }
 }

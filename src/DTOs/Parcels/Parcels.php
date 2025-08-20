@@ -52,5 +52,10 @@ class Parcels implements PayloadInterface
             ->map(fn(array $parcel) => ['id' => Str::random(4)] + $parcel)
             ->toArray();
     }
+
+    public function toArray(): array
+    {
+        return $this->parcels->map(fn(ParcelInterface $parcel) => $parcel->toArray())->toArray();
+    }
 }
 
