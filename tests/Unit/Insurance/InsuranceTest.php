@@ -17,7 +17,7 @@ class InsuranceTest extends InPostTestCase
     public function test_insurance_returns_payload_with_amount_and_currency()
     {
         $insurance = new Insurance();
-        $insurance->amount = 1200;
+        $insurance->set(1200);
 
         $this->assertEquals([
             'amount' => 1200,
@@ -28,8 +28,7 @@ class InsuranceTest extends InPostTestCase
     public function test_insurance_returns_payload_with_amount_and_custom_currency()
     {
         $insurance = new Insurance();
-        $insurance->amount = 12.45;
-        $insurance->currency = 'USD';
+        $insurance->set(12.45, 'USD');
 
         $this->assertEquals([
             'amount' => 12.45,
@@ -40,8 +39,7 @@ class InsuranceTest extends InPostTestCase
     public function test_insurance_return_array_of_values()
     {
         $insurance = new Insurance();
-        $insurance->amount = 12.45;
-        $insurance->currency = 'USD';
+        $insurance->set(12.45, 'USD');
 
         $this->assertIsArray($insurance->toArray());
         $this->assertArrayHasKey('insurance', $insurance->toArray());
