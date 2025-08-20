@@ -45,7 +45,7 @@ abstract class BaseAddress implements PayloadInterface
             'name' => self::divideName($value),
             'first_name' => $this->meta['first_name'] = $value,
             'last_name' => $this->meta['last_name'] = $value,
-            'phone' => $this->meta['phone'] = $value,
+            'phone' => $this->meta['phone'] = str($value)->replaceStart('+48', '')->replace([' ', '-'], '')->toString(),
             'email' => $this->meta['email'] = $value,
             'city' => $this->address['city'] = $value,
             'post_code' => $this->address['post_code'] = PostCodeCast::toNumeric($value),
