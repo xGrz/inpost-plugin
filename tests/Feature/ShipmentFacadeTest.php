@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Xgrz\InPost\DTOs\Parcels\CustomParcel;
 use Xgrz\InPost\DTOs\Parcels\LockerParcel;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
+use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Facades\InPostShipment;
 use Xgrz\InPost\Jobs\UpdateInPostServicesJob;
@@ -24,7 +25,7 @@ class ShipmentFacadeTest extends InPostTestCase
             'https://sandbox-api-shipx-pl.easypack24.net/v1/organizations/*' => $this->fromFile('CostCentersListResponse.json'),
         ]);
         (new UpdateInPostServicesJob)->handle();
-        $this->costsCenter = InPost::costCenters()->get()['items'][1]; // todo: this should be fixed
+        $this->costsCenter = InPost::costCenters()->get()[1];
     }
 
     public function testCanAssignReceiverForParcelLockerWithEmailAndPhoneOnly()
@@ -116,32 +117,34 @@ class ShipmentFacadeTest extends InPostTestCase
         $this->assertSame(400, $s->payload()['parcels'][0]['dimensions']['width']);
         $this->assertSame(200, $s->payload()['parcels'][0]['dimensions']['height']);
         $this->assertSame(100, $s->payload()['parcels'][0]['dimensions']['length']);
-        $this->assertSame(5, $s->payload()['parcels'][0]['dimensions']['weight']);
+        $this->assertSame('mm', $s->payload()['parcels'][0]['dimensions']['unit']);
+        $this->assertEquals(5, $s->payload()['parcels'][0]['weight']['amount']);
+        $this->assertSame('kg', $s->payload()['parcels'][0]['weight']['unit']);
         $this->assertFalse($s->payload()['parcels'][0]['non_standard']);
     }
 
     public function testCanAssignInsurance()
     {
         $s = new InPostShipment();
-        $s->insurance->amount = 2000;
+        $s->insurance->set(2000);
 
-        $this->assertSame(2000, $s->payload()['insurance']['amount']);
+        $this->assertEquals(2000, $s->payload()['insurance']['amount']);
         $this->assertSame('PLN', $s->payload()['insurance']['currency']);
     }
 
     public function testCanAssignCashOnDelivery()
     {
         $s = new InPostShipment();
-        $s->cash_on_delivery->amount = 100;
+        $s->cash_on_delivery->set(100);
 
-        $this->assertSame(100, $s->payload()['cod']['amount']);
+        $this->assertEquals(100, $s->payload()['cod']['amount']);
         $this->assertSame('PLN', $s->payload()['cod']['currency']);
     }
 
     public function testCostSaverForInsuranceWhenLowValue()
     {
         $s = new InPostShipment();
-        $s->insurance->amount = 300;
+        $s->insurance->set(300);
 
         $this->assertNull($s->payload()['insurance']);
     }
@@ -149,19 +152,19 @@ class ShipmentFacadeTest extends InPostTestCase
     public function testInsuranceIsRequiredWhenCachOnDeliveryIsGiven()
     {
         $s = new InPostShipment();
-        $s->cash_on_delivery->amount = 100;
+        $s->cash_on_delivery->set(100);
 
         $this->assertArrayHasKey('insurance', $s->payload());
-        $this->assertSame(100, $s->payload()['insurance']['amount']);
+        $this->assertEquals(100, $s->payload()['insurance']['amount']);
 
         $this->assertArrayHasKey('cod', $s->payload());;
-        $this->assertSame(100, $s->payload()['cod']['amount']);
+        $this->assertEquals(100, $s->payload()['cod']['amount']);
     }
 
     public function testCanAssignReference()
     {
         $s = new InPostShipment();
-        $s->reference = 'Order #5000';
+        $s->reference('Order #5000');
 
         $this->assertSame('Order #5000', $s->payload()['reference']);
     }
@@ -169,7 +172,7 @@ class ShipmentFacadeTest extends InPostTestCase
     public function testCanAssignComments()
     {
         $s = new InPostShipment();
-        $s->comments = 'This is a test shipment';
+        $s->comment('This is a test shipment');
 
         $this->assertSame('This is a test shipment', $s->payload()['comments']);
     }
@@ -177,21 +180,39 @@ class ShipmentFacadeTest extends InPostTestCase
     public function testAssignCostCenter()
     {
         $s = new InPostShipment();
-        $s->mpk = $this->costsCenter['name'];
+        $s->costCenter($this->costsCenter['name']);
 
         $this->assertSame('Second', $s->payload()['mpk']);
     }
 
-    public function testCannotAssignUnknownCostCenter()
+    public function testAssignUnknownCostCenterThrowsException()
+    {
+        $this->expectException(ShipXException::class);
+        $this->expectExceptionMessage(
+            'Cost Center with name [Non existing Cost Center] not found.'
+        );
+
+        $s = new InPostShipment();
+        $s->costCenter('Non existing Cost Center');
+    }
+
+    public function testSetReturn()
     {
         $s = new InPostShipment();
-        $s->mpk = 'Not existing Cost Center';
+        $s->setReturn();
+        $this->assertTrue($s->payload()['is_return']);
+    }
 
-        $this->assertNull($s->payload()['mpk']);
+    public function testOnlyChoiceOfOffer()
+    {
+        $s = new InPostShipment();
+        $s->onlyChoiceOfOffer();
+        $this->assertTrue($s->payload()['only_choice_of_offer']);
     }
 
     public function testShipmentToArray()
     {
+
     }
 
 }

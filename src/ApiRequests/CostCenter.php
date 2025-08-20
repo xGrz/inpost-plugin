@@ -2,15 +2,19 @@
 
 namespace Xgrz\InPost\ApiRequests;
 
+use Illuminate\Support\Collection;
+
 class CostCenter extends BaseShipXCall
 {
     protected string $endpoint = '';
 
-    public function get()
+    public function get(): Collection
     {
         $this->endpoint = '/v1/organizations/:id/mpks';
-
-        return $this->getCall();
+        $response = $this->getCall();
+        return array_key_exists('items', $response)
+            ? collect($response['items'])
+            : collect([]);
     }
 
     public function details(int $inpostId)

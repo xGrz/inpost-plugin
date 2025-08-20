@@ -9,7 +9,7 @@ class CostCenterTest extends InPostTestCase
     public function test_api_call_to_fetch_costs_center_list()
     {
         Http::fake($this->fakeCostCentersListResponse());
-        InPost::costCenters()->get();
+        $items = InPost::costCenters()->get();
 
         Http::assertSent(fn($request) => $request->url() === 'https://sandbox-api-shipx-pl.easypack24.net/v1/organizations/1916/mpks');
         Http::assertSent(fn($request) => $request->method() === 'GET');
@@ -17,6 +17,8 @@ class CostCenterTest extends InPostTestCase
         Http::assertSent(fn($request) => $request->hasHeader('Accept', 'application/json'));
         Http::assertSent(fn($request) => $request->hasHeader('Content-Type', 'application/json'));
         Http::assertSent(fn($request) => $request->hasHeader('Accept-Language', 'pl-PL'));
+
+        $this->assertNotEmpty($items);
     }
 
     public function test_can_fetch_cost_center_details()
