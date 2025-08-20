@@ -4,6 +4,7 @@ namespace Xgrz\InPost\DTOs\Parcels;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Interfaces\ParcelInterface;
 use Xgrz\InPost\Interfaces\PayloadInterface;
 
@@ -21,8 +22,12 @@ class Parcels implements PayloadInterface
         return new static();
     }
 
-    public function add(ParcelInterface $parcel): static
+    public function add(ParcelInterface|ParcelLockerTemplate $parcel): static
     {
+        if ($parcel instanceof ParcelLockerTemplate) {
+            $parcel = LockerParcel::make($parcel);
+        }
+
         $this->parcels->push($parcel);
         return $this;
     }

@@ -108,6 +108,15 @@ class ShipmentFacadeTest extends InPostTestCase
         $this->assertSame(ParcelLockerTemplate::S->value, $s->payload()['parcels']['template']);
     }
 
+    public function testCanAssignParcelLockerFromEnumTemplate()
+    {
+        $s = new InPostShipment();
+        $s->parcels->add(ParcelLockerTemplate::M);
+
+        $this->assertCount(1, $s->payload()['parcels']);
+        $this->assertSame(ParcelLockerTemplate::M->value, $s->payload()['parcels']['template']);
+    }
+
     public function testCanAssignParcelsForCourier()
     {
         $s = new InPostShipment();
@@ -250,6 +259,7 @@ class ShipmentFacadeTest extends InPostTestCase
             ->setService('inpost_courier_standard')
             ->additionalServices(['SMS', 'Email'])
             ->targetPoint('WAW375A');
+
         $s->reference('Order #5000');
         $s->comment('This is a test shipment');
         $s->costCenter($this->costsCenter['name']);
@@ -257,6 +267,7 @@ class ShipmentFacadeTest extends InPostTestCase
         $s->onlyChoiceOfOffer();
 
         $arr = $s->toArray();
+
         $this->assertIsArray($arr);
         $this->assertEquals($senderData + ['country_code' => 'PL'], $arr['sender']);
         $this->assertEquals($receiverData + ['country_code' => 'PL'], $arr['receiver']);
