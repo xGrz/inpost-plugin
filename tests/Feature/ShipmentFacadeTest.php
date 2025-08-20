@@ -89,8 +89,8 @@ class ShipmentFacadeTest extends InPostTestCase
         $s = new InPostShipment();
         $s->service
             ->setService('inpost_courier_standard')
-            ->additionalService('SMS')
-            ->additionalService('Email');
+            ->additionalServices('SMS')
+            ->additionalServices('Email');
 
         $this->assertSame('inpost_courier_standard', $s->payload()['service']);
         $this->assertArrayHasKey('additional_services', $s->payload());
@@ -247,8 +247,8 @@ class ShipmentFacadeTest extends InPostTestCase
         $s->insurance->set(600);
         $s->cash_on_delivery->set(1100);
         $s->service->setService('inpost_courier_standard')
-            ->additionalService('SMS')
-            ->additionalService('Email')
+            ->additionalServices('SMS')
+            ->additionalServices('Email')
             ->targetPoint('WAW375A');
         $s->reference('Order #5000');
         $s->comment('This is a test shipment');

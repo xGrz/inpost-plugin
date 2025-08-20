@@ -53,18 +53,31 @@ class ShipmentServiceTest extends InPostTestCase
         $service = ShipmentService::make();
         $service
             ->setService('inpost_courier_standard')
-            ->additionalService('SMS');
+            ->additionalServices('SMS');
 
         $this->assertArrayHasKey('additional_services', $service->payload());
         $this->assertTrue(in_array('sms', $service->payload()['additional_services']));
     }
+
+    public function test_can_set_additional_service_names_with_array()
+    {
+        $service = ShipmentService::make();
+        $service
+            ->setService('inpost_courier_standard')
+            ->additionalServices(['SMS', 'email']);
+
+        $this->assertArrayHasKey('additional_services', $service->payload());
+        $this->assertTrue(in_array('sms', $service->payload()['additional_services']));
+        $this->assertTrue(in_array('email', $service->payload()['additional_services']));
+    }
+
 
     public function test_throws_exception_when_service_is_not_provided_and_additional_service_has_been_set()
     {
         $this->expectException(ShipXException::class);
         $this->expectExceptionMessage('Service not set. Use setService() method first.');
 
-        ShipmentService::make()->additionalService('SMS');
+        ShipmentService::make()->additionalServices('SMS');
     }
 
     public function test_throws_exception_when_unknown_additional_service_is_set()
@@ -75,7 +88,7 @@ class ShipmentServiceTest extends InPostTestCase
         $service = ShipmentService::make();
         $service
             ->setService('inpost_courier_standard')
-            ->additionalService('unknown_service');
+            ->additionalServices(['sms', 'unknown_service']);
     }
 
     public function test_throws_exception_when_unknown_additional_service_is_disabled()
@@ -90,7 +103,7 @@ class ShipmentServiceTest extends InPostTestCase
         $service = ShipmentService::make();
         $service
             ->setService('inpost_courier_standard')
-            ->additionalService('sms');
+            ->additionalServices('sms');
     }
 
     public function test_can_set_target_point()

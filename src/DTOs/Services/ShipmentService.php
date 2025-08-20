@@ -45,24 +45,27 @@ class ShipmentService
     /**
      * @throws ShipXException
      */
-    public function additionalService(string $additionalServiceName): static
+    public function additionalServices(string|array $additionalServiceNames): static
     {
         if (! $this->service) {
             throw new ShipXException('Service not set. Use setService() method first.');
         }
 
-        $additionalService = $this->service
-            ->additionalServices
-            ->filter(fn($additionalService) => $additionalService->ident === str($additionalServiceName)->lower()->toString())
-            ->first();
+        collect($additionalServiceNames)
+            ->each(function($additionalServiceName) {
+                $additionalService = $this->service
+                    ->additionalServices
+                    ->filter(fn($additionalService) => $additionalService->ident === str($additionalServiceName)->lower()->toString())
+                    ->first();
 
-        if ($additionalService && $additionalService->active) {
-            $this->additionalServices[] = $additionalService->ident;
-        } elseif (! $additionalService) {
-            throw new ShipXException('Additional service not found [' . $additionalServiceName . ']');
-        } else {
-            throw new ShipXException('Additional service [' . $additionalServiceName . '] is locally disabled for selected ' . $this->service->id . ' service');
-        }
+                if ($additionalService && $additionalService->active) {
+                    $this->additionalServices[] = $additionalService->ident;
+                } elseif (! $additionalService) {
+                    throw new ShipXException('Additional service not found [' . $additionalServiceName . ']');
+                } else {
+                    throw new ShipXException('Additional service [' . $additionalServiceName . '] is locally disabled for selected ' . $this->service->id . ' service');
+                }
+            });
 
         return $this;
     }
