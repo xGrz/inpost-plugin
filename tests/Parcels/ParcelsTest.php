@@ -2,10 +2,10 @@
 
 namespace Xgrz\InPost\Tests\Parcels;
 
-use Xgrz\InPost\DTOs\Parcels\CourierParcel;
-use Xgrz\InPost\DTOs\Parcels\LockerParcel;
-use Xgrz\InPost\DTOs\Parcels\Parcels;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
+use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
+use Xgrz\InPost\ShipmentComponents\Parcels\LockerParcel;
+use Xgrz\InPost\ShipmentComponents\Parcels\Parcels;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class ParcelsTest extends InPostTestCase

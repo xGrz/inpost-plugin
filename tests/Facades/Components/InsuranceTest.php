@@ -2,7 +2,7 @@
 
 namespace Components;
 
-use Xgrz\InPost\DTOs\Insurance\Insurance;
+use Xgrz\InPost\ShipmentComponents\Insurance\Insurance;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class InsuranceTest extends InPostTestCase

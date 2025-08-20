@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\DTOs\Parcels;
+namespace Xgrz\InPost\ShipmentComponents\Parcels;
 
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Interfaces\ParcelInterface;

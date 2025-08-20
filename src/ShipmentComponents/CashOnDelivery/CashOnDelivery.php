@@ -1,8 +1,8 @@
 <?php
 
-namespace Xgrz\InPost\DTOs\CashOnDelivery;
+namespace Xgrz\InPost\ShipmentComponents\CashOnDelivery;
 
-use Xgrz\InPost\DTOs\AmountValues;
+use Xgrz\InPost\ShipmentComponents\AmountValues;
 
 class CashOnDelivery extends AmountValues
 {

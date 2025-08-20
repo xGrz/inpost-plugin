@@ -2,13 +2,13 @@
 
 namespace Xgrz\InPost\Facades;
 
-use Xgrz\InPost\DTOs\Address\Receiver;
-use Xgrz\InPost\DTOs\Address\Sender;
-use Xgrz\InPost\DTOs\CashOnDelivery\CashOnDelivery;
-use Xgrz\InPost\DTOs\Insurance\Insurance;
-use Xgrz\InPost\DTOs\Parcels\Parcels;
-use Xgrz\InPost\DTOs\Services\ShipmentService;
 use Xgrz\InPost\Exceptions\ShipXException;
+use Xgrz\InPost\ShipmentComponents\Address\Receiver;
+use Xgrz\InPost\ShipmentComponents\Address\Sender;
+use Xgrz\InPost\ShipmentComponents\CashOnDelivery\CashOnDelivery;
+use Xgrz\InPost\ShipmentComponents\Insurance\Insurance;
+use Xgrz\InPost\ShipmentComponents\Parcels\Parcels;
+use Xgrz\InPost\ShipmentComponents\Services\ShipmentService;
 
 class InPostShipment
 {

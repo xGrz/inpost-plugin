@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\DTOs\Address;
+namespace Xgrz\InPost\ShipmentComponents\Address;
 
 use Xgrz\InPost\Enums\AddressType;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\DTOs\Parcels;
+namespace Xgrz\InPost\ShipmentComponents\Parcels;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

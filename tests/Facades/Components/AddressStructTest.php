@@ -2,7 +2,7 @@
 
 namespace Components;
 
-use Xgrz\InPost\DTOs\Address\Sender;
+use Xgrz\InPost\ShipmentComponents\Address\Sender;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class AddressStructTest extends InPostTestCase

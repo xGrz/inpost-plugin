@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\DTOs;
+namespace Xgrz\InPost\ShipmentComponents;
 
 use Illuminate\Support\Str;
 

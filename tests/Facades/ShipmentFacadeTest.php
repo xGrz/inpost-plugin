@@ -3,13 +3,13 @@
 namespace Xgrz\InPost\Tests\Facades;
 
 use Illuminate\Support\Facades\Http;
-use Xgrz\InPost\DTOs\Parcels\CourierParcel;
-use Xgrz\InPost\DTOs\Parcels\LockerParcel;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Facades\InPostShipment;
 use Xgrz\InPost\Jobs\UpdateInPostServicesJob;
+use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
+use Xgrz\InPost\ShipmentComponents\Parcels\LockerParcel;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class ShipmentFacadeTest extends InPostTestCase

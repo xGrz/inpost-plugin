@@ -1,8 +1,8 @@
 <?php
 
-namespace Xgrz\InPost\DTOs\Insurance;
+namespace Xgrz\InPost\ShipmentComponents\Insurance;
 
-use Xgrz\InPost\DTOs\AmountValues;
+use Xgrz\InPost\ShipmentComponents\AmountValues;
 
 class Insurance extends AmountValues
 {

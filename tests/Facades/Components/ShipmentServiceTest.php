@@ -4,11 +4,11 @@ namespace Components;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
-use Xgrz\InPost\DTOs\Services\ShipmentService;
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\Jobs\UpdateInPostServicesJob;
 use Xgrz\InPost\Models\InPostAdditionalService;
 use Xgrz\InPost\Models\InPostService;
+use Xgrz\InPost\ShipmentComponents\Services\ShipmentService;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class ShipmentServiceTest extends InPostTestCase

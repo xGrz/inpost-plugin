@@ -2,7 +2,7 @@
 
 namespace Xgrz\InPost\Tests\Parcels\Items;
 
-use Xgrz\InPost\DTOs\Parcels\CourierParcel;
+use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class CustomParcelTest extends InPostTestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\DTOs\Services;
+namespace Xgrz\InPost\ShipmentComponents\Services;
 
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\Models\InPostService;
