@@ -114,4 +114,5 @@ class ShipmentServiceTest extends InPostTestCase
         $this->assertArrayHasKey('custom_attributes', $service->payload());;
         $this->assertArrayHasKey('target_point', $service->payload()['custom_attributes']);;
     }
+
 }

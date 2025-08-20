@@ -12,7 +12,7 @@ use Xgrz\InPost\Exceptions\ShipXException;
 
 class InPostShipment
 {
-    public Sender $sender; // if not provided, will be set default InPost data
+    public readonly Sender $sender; // if not provided, will be set default InPost data
     public readonly Receiver $receiver;
     public readonly Parcels $parcels;
     public readonly CashOnDelivery $cash_on_delivery;
@@ -46,7 +46,6 @@ class InPostShipment
         return $this;
     }
 
-
     public function setReturn(bool $isReturn = true): static
     {
         $this->is_return = $isReturn;
@@ -56,6 +55,24 @@ class InPostShipment
     public function onlyChoiceOfOffer(bool $onlyChoiceOfOffer = true): static
     {
         $this->only_choice_of_offer = $onlyChoiceOfOffer;
+        return $this;
+    }
+
+    /**
+     * @throws ShipXException
+     */
+    public function targetPoint(string $targetPoint, ?string $email = NULL, ?string $phone = NULL, ?string $serviceName = NULL): static
+    {
+        $this->service->targetPoint($targetPoint);
+        if(!empty($email)) {
+            $this->receiver->email = $email;
+        }
+        if(!empty($phone)) {
+            $this->receiver->phone = $phone;
+        }
+        if(!empty($serviceName)) {
+            $this->service->setService($serviceName);
+        }
         return $this;
     }
 

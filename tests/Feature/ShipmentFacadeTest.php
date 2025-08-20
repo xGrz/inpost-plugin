@@ -246,9 +246,9 @@ class ShipmentFacadeTest extends InPostTestCase
         $s->parcels->add(CustomParcel::make(40, 20, 10, 5, 2, true));
         $s->insurance->set(600);
         $s->cash_on_delivery->set(1100);
-        $s->service->setService('inpost_courier_standard')
-            ->additionalServices('SMS')
-            ->additionalServices('Email')
+        $s->service
+            ->setService('inpost_courier_standard')
+            ->additionalServices(['SMS', 'Email'])
             ->targetPoint('WAW375A');
         $s->reference('Order #5000');
         $s->comment('This is a test shipment');
@@ -282,5 +282,23 @@ class ShipmentFacadeTest extends InPostTestCase
         $this->assertEquals(1100, $arr['cod']);
         $this->assertEquals('PLN', $arr['cod_currency']);
     }
+
+    public function test_use_target_point_helper_for_setting_parcel_locker_shipment()
+    {
+        $s = new InPostShipment();
+        $s->targetPoint('WAW375A', 'test@example.com', '500777535', 'inpost_locker_standard');
+
+        $this->assertArrayHasKey('custom_attributes', $s->payload());
+        $this->assertArrayHasKey('target_point', $s->payload()['custom_attributes']);
+        $this->assertArrayHasKey('receiver', $s->payload());
+        $this->assertEquals('test@example.com', $s->payload()['receiver']['email']);;
+        $this->assertSame('500777535', $s->payload()['receiver']['phone']);
+        $this->assertEquals('inpost_locker_standard', $s->payload()['service']);
+
+        $this->assertEquals('WAW375A', $s->payload()['custom_attributes']['target_point']);
+
+        dump($s->payload());
+    }
+
 
 }
