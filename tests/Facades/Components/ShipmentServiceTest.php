@@ -1,5 +1,7 @@
 <?php
 
+namespace Components;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Xgrz\InPost\DTOs\Services\ShipmentService;

@@ -1,7 +1,10 @@
 <?php
 
+namespace Xgrz\InPost\Tests\InPostApi;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Queue;
 use Xgrz\InPost\Enums\PointStatus;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Jobs\SynchronizeInPostPointsJob;

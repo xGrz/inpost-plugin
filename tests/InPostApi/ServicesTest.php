@@ -1,5 +1,7 @@
 <?php
 
+namespace Xgrz\InPost\Tests\InPostApi;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Xgrz\InPost\Facades\InPost;

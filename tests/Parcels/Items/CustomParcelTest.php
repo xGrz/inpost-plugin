@@ -1,6 +1,6 @@
 <?php
 
-namespace Parcels;
+namespace Xgrz\InPost\Tests\Parcels\Items;
 
 use Xgrz\InPost\DTOs\Parcels\CustomParcel;
 use Xgrz\InPost\Tests\InPostTestCase;

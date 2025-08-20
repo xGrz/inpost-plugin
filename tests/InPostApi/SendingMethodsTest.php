@@ -1,20 +1,20 @@
 <?php
 
-namespace Xgrz\InPost\Tests\Unit;
+namespace Xgrz\InPost\Tests\InPostApi;
 
 use Illuminate\Support\Facades\Http;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Tests\InPostTestCase;
 
-class OrganizationTest extends InPostTestCase
+class SendingMethodsTest extends InPostTestCase
 {
 
-    public function test_api_call_to_fetch_organization()
+    public function test_can_retrieve_sending_methods()
     {
-        Http::fake($this->fakeOrganizationsResponse());
-        InPost::organization();
+        Http::fake($this->fakeServicesResponse());
+        InPost::sendingMethods();
 
-        Http::assertSent(fn($request) => $request->url() === 'https://sandbox-api-shipx-pl.easypack24.net/v1/organizations/1916');
+        Http::assertSent(fn($request) => $request->url() === 'https://sandbox-api-shipx-pl.easypack24.net/v1/sending_methods');
         Http::assertSent(fn($request) => $request->method() === 'GET');
         Http::assertSent(fn($request) => $request->hasHeader('Authorization', 'Bearer INPOST-TOKEN'));
         Http::assertSent(fn($request) => $request->hasHeader('Accept', 'application/json'));

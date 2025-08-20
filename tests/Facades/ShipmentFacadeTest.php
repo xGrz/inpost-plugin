@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\Tests\Feature;
+namespace Xgrz\InPost\Tests\Facades;
 
 use Illuminate\Support\Facades\Http;
 use Xgrz\InPost\DTOs\Parcels\CustomParcel;

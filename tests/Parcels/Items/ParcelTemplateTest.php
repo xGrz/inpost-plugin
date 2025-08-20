@@ -1,5 +1,7 @@
 <?php
 
+namespace Xgrz\InPost\Tests\Parcels\Items;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Models\ParcelTemplate;

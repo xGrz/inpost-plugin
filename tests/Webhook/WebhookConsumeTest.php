@@ -1,5 +1,7 @@
 <?php
 
+namespace Xgrz\InPost\Tests\Webhook;
+
 use Illuminate\Support\Facades\Event;
 use Xgrz\InPost\Events\InPostShipmentStatusChangedEvent;
 use Xgrz\InPost\Models\InPostShipmentNumber;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Xgrz\InPost\Tests\Casts;
+
 use Xgrz\InPost\Casts\PostCodeCast;
 use Xgrz\InPost\Models\InPostPoint;
 use Xgrz\InPost\Tests\InPostTestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\Tests\Feature;
+namespace Xgrz\InPost\Tests\Parcels;
 
 use Xgrz\InPost\DTOs\Parcels\CustomParcel;
 use Xgrz\InPost\DTOs\Parcels\LockerParcel;

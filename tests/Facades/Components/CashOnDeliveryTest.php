@@ -1,6 +1,6 @@
 <?php
 
-namespace CashOnDelivery;
+namespace Components;
 
 use Xgrz\InPost\DTOs\CashOnDelivery\CashOnDelivery;
 use Xgrz\InPost\Tests\InPostTestCase;

@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
     bootstrap="vendor/autoload.php"
     colors="true"
     cacheDirectory=".phpunit.cache"
 >
     <testsuites>
-        <testsuite name="Unit">
-            <directory>tests/Unit</directory>
+        <testsuite name="Api">
+            <directory>tests/InPostApi</directory>
         </testsuite>
-        <testsuite name="Feature">
-            <directory>tests/Feature</directory>
+
+        <testsuite name="Casts">
+            <directory>tests/Casts</directory>
+        </testsuite>
+
+        <testsuite name="Webhook">
+            <directory>tests/Webhook</directory>
+        </testsuite>
+
+        <testsuite name="Parcels">
+            <directory>tests/Parcels</directory>
+        </testsuite>
+
+        <testsuite name="Jobs">
+            <directory>tests/Jobs</directory>
+        </testsuite>
+
+        <testsuite name="Facades">
+            <directory>tests/Facades</directory>
         </testsuite>
     </testsuites>
 

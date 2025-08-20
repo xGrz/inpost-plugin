@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\Tests\Unit;
+namespace Xgrz\InPost\Tests\Jobs;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Xgrz\InPost\Tests\InPostTestCase;

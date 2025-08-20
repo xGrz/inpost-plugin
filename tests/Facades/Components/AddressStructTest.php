@@ -1,6 +1,6 @@
 <?php
 
-namespace Xgrz\InPost\Tests\Unit;
+namespace Components;
 
 use Xgrz\InPost\DTOs\Address\Sender;
 use Xgrz\InPost\Tests\InPostTestCase;

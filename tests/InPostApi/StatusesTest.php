@@ -1,5 +1,7 @@
 <?php
 
+namespace Xgrz\InPost\Tests\InPostApi;
+
 use Illuminate\Support\Facades\Http;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Tests\InPostTestCase;
