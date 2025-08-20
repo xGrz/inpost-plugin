@@ -4,7 +4,7 @@ namespace Xgrz\InPost\DTOs\Parcels;
 
 use Xgrz\InPost\Interfaces\ParcelInterface;
 
-class CustomParcel implements ParcelInterface
+class CourierParcel implements ParcelInterface
 {
     protected int $width;
     protected int $height;

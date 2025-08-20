@@ -2,7 +2,7 @@
 
 namespace Xgrz\InPost\Tests\Parcels;
 
-use Xgrz\InPost\DTOs\Parcels\CustomParcel;
+use Xgrz\InPost\DTOs\Parcels\CourierParcel;
 use Xgrz\InPost\DTOs\Parcels\LockerParcel;
 use Xgrz\InPost\DTOs\Parcels\Parcels;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
@@ -24,7 +24,7 @@ class ParcelsTest extends InPostTestCase
     public function test_can_add_custom_parcel_to_parcels()
     {
         $parcels = new Parcels();
-        $parcels->add(CustomParcel::make(38, 64, 8, 25, 2, true));
+        $parcels->add(CourierParcel::make(38, 64, 8, 25, 2, true));
         $parcels->add(LockerParcel::make(ParcelLockerTemplate::M));
 
         $payload = $parcels->payload();
@@ -64,7 +64,7 @@ class ParcelsTest extends InPostTestCase
     public function test_can_get_proper_parcel_payload_for_courier()
     {
         $parcels = new Parcels();
-        $parcels->add(CustomParcel::make(38, 64, 8, 25, 2, true));
+        $parcels->add(CourierParcel::make(38, 64, 8, 25, 2, true));
         $parcels->add(LockerParcel::make(ParcelLockerTemplate::M));
 
         $payload = $parcels->payload();
@@ -95,6 +95,7 @@ class ParcelsTest extends InPostTestCase
 
         $this->assertArrayHasKey('id', $payload[2]);
         $this->assertArrayHasKey('template', $payload[2]);
-        $this->assertEquals(ParcelLockerTemplate::M->value, $payload[2]['template']);;
+        $this->assertEquals(ParcelLockerTemplate::M->value, $payload[2]['template']);
+
     }
 }

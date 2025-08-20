@@ -5,6 +5,12 @@
       <list>
         <option value="$PROJECT_DIR$/tests/Unit" />
         <option value="$PROJECT_DIR$/tests/Feature" />
+        <option value="$PROJECT_DIR$/tests/InPostApi" />
+        <option value="$PROJECT_DIR$/tests/Casts" />
+        <option value="$PROJECT_DIR$/tests/Webhook" />
+        <option value="$PROJECT_DIR$/tests/Parcels" />
+        <option value="$PROJECT_DIR$/tests/Jobs" />
+        <option value="$PROJECT_DIR$/tests/Facades" />
       </list>
     </option>
   </component>

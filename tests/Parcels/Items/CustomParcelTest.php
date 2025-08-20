@@ -2,7 +2,7 @@
 
 namespace Xgrz\InPost\Tests\Parcels\Items;
 
-use Xgrz\InPost\DTOs\Parcels\CustomParcel;
+use Xgrz\InPost\DTOs\Parcels\CourierParcel;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class CustomParcelTest extends InPostTestCase
@@ -10,7 +10,7 @@ class CustomParcelTest extends InPostTestCase
 
     public function test_parcel_locker_returns_array_of_values()
     {
-        $parcel = (CustomParcel::make(38, 64, 8, 25, 2, true))->toArray();
+        $parcel = (CourierParcel::make(38, 64, 8, 25, 2, true))->toArray();
 
         $this->assertEquals(38, $parcel['width']);
         $this->assertEquals(64, $parcel['height']);
@@ -22,7 +22,7 @@ class CustomParcelTest extends InPostTestCase
 
     public function test_parcel_locker_returns_payload()
     {
-        $parcel = (CustomParcel::make(38, 64, 8, 25, 2, true))->payload();
+        $parcel = (CourierParcel::make(38, 64, 8, 25, 2, true))->payload();
 
         $this->assertIsArray($parcel);
         $this->assertIsArray($parcel['dimensions']);

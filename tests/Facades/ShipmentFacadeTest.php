@@ -3,7 +3,7 @@
 namespace Xgrz\InPost\Tests\Facades;
 
 use Illuminate\Support\Facades\Http;
-use Xgrz\InPost\DTOs\Parcels\CustomParcel;
+use Xgrz\InPost\DTOs\Parcels\CourierParcel;
 use Xgrz\InPost\DTOs\Parcels\LockerParcel;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Exceptions\ShipXException;
@@ -120,7 +120,7 @@ class ShipmentFacadeTest extends InPostTestCase
     public function testCanAssignParcelsForCourier()
     {
         $s = new InPostShipment();
-        $s->parcels->add(CustomParcel::make(40, 20, 10, 5, 1, false));
+        $s->parcels->add(CourierParcel::make(40, 20, 10, 5, 1, false));
 
         $this->assertCount(1, $s->payload()['parcels']);
         $this->assertSame(400, $s->payload()['parcels'][0]['dimensions']['width']);
@@ -252,7 +252,7 @@ class ShipmentFacadeTest extends InPostTestCase
             $s->receiver->$key = $value;
         }
 
-        $s->parcels->add(CustomParcel::make(40, 20, 10, 5, 2, true));
+        $s->parcels->add(CourierParcel::make(40, 20, 10, 5, 2, true));
         $s->insurance->set(600);
         $s->cash_on_delivery->set(1100);
         $s->service

@@ -38,6 +38,11 @@ abstract class BaseAddress implements PayloadInterface
         'country_code' => NULL,
     ];
 
+    public static function make(): static
+    {
+        return new static();
+    }
+
     public function __set(string $name, $value): void
     {
         match ($name) {
