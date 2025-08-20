@@ -18,4 +18,5 @@ return [
     // InPost allow do download 'pdf', 'zpl' or 'epl' label
     'label_format' => 'pdf',
     'webhook_ip_restriction' => '91.216.25.0/24',
+    'webhook_url' => env('INPOST_WEBHOOK_URL', '/inpost-webhook'),
 ];

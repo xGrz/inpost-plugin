@@ -7,6 +7,8 @@ use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Xgrz\InPost\Config\InPostConfig;
+use Xgrz\InPost\Exceptions\ShipXConfigurationException;
 use Xgrz\InPost\Exceptions\ShipXException;
 
 abstract class BaseShipXCall
@@ -20,27 +22,13 @@ abstract class BaseShipXCall
         $this->props = collect();
     }
 
-    protected static function token(): string
-    {
-        return config('inpost.token', '');
-    }
-
-    protected static function baseUrl(): string
-    {
-        return config('inpost.url', '');
-    }
-
-    protected static function organizationId(): int
-    {
-        $organizationId = config('inpost.organization');
-        if (empty($organizationId)) throw new ShipXException('Missing organization id');
-        return config('inpost.organization');
-    }
-
+    /**
+     * @throws ShipXConfigurationException
+     */
     protected function baseCall(): PendingRequest|Factory
     {
         return Http::withHeaders([
-            'Authorization' => 'Bearer ' . self::token(),
+            'Authorization' => 'Bearer ' . InPostConfig::token(),
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
             'Accept-Language' => 'pl-PL',
@@ -53,8 +41,8 @@ abstract class BaseShipXCall
     protected function getEndpoint(): string
     {
         $endpoint = str($this->endpoint)
-            ->replaceEnd(':id', self::organizationId())
-            ->replace(':id/', self::organizationId() . '/')
+            ->replaceEnd(':id', InPostConfig::organizationId())
+            ->replace(':id/', InPostConfig::organizationId() . '/')
             ->when(
                 $this->props->isNotEmpty(),
                 fn($endpoint) => $endpoint
@@ -80,9 +68,13 @@ abstract class BaseShipXCall
         return $this;
     }
 
+    /**
+     * @throws ShipXException
+     * @throws ShipXConfigurationException
+     */
     protected function getFullEndpoint(): string
     {
-        return self::baseUrl() . $this->getEndpoint();
+        return InPostConfig::baseUrl() . $this->getEndpoint();
     }
 
     public function buildCommaSeparatedPayload(): array
@@ -94,10 +86,11 @@ abstract class BaseShipXCall
 
     /**
      * @throws ConnectionException
+     * @throws ShipXConfigurationException
+     * @throws ShipXException
      */
     protected function getCall()
     {
-
         return $this
             ->baseCall()
             ->withQueryParameters($this->buildCommaSeparatedPayload())
@@ -107,6 +100,8 @@ abstract class BaseShipXCall
 
     /**
      * @throws ConnectionException
+     * @throws ShipXConfigurationException
+     * @throws ShipXException
      */
     protected function getFile()
     {
@@ -119,6 +114,8 @@ abstract class BaseShipXCall
 
     /**
      * @throws ConnectionException
+     * @throws ShipXConfigurationException
+     * @throws ShipXException
      */
     protected function postCall()
     {
@@ -130,6 +127,8 @@ abstract class BaseShipXCall
 
     /**
      * @throws ConnectionException
+     * @throws ShipXConfigurationException
+     * @throws ShipXException
      */
     protected function putCall()
     {

@@ -1,12 +1,13 @@
 <?php
 
+use Xgrz\InPost\Config\InPostConfig;
 use Xgrz\InPost\Http\Controllers\ShipXWebhookController;
 
 Route::middleware(['inpost-ip-restriction', 'api'])
     ->withoutMiddleware('web')
-    ->name('inpostWebhook.')
-    ->prefix('inpost')
+    ->name('inpostWebhook')
+    ->prefix(InPostConfig::webhookUrl())
     ->group(function() {
-        Route::get('/webhook', [ShipXWebhookController::class, 'index'])->name('index');
-        Route::post('/webhook', [ShipXWebhookController::class, 'consumeWebhook'])->name('webhook');
+        Route::get('', [ShipXWebhookController::class, 'index']);
+        Route::post('', [ShipXWebhookController::class, 'consumeWebhook']);
     });

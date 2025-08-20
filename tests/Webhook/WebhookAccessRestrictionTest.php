@@ -10,7 +10,7 @@ class WebhookAccessRestrictionTest extends InPostTestCase
     {
         $response = $this->withServerVariables([
             'REMOTE_ADDR' => '91.216.25.100',
-        ])->get('/inpost/webhook');
+        ])->get('/inpost-webhook');
 
 
         $response->assertStatus(200);
@@ -21,7 +21,7 @@ class WebhookAccessRestrictionTest extends InPostTestCase
     {
         $response = $this->withServerVariables([
             'REMOTE_ADDR' => '8.8.8.8',
-        ])->get('/inpost/webhook');
+        ])->get('/inpost-webhook');
 
         $response->assertStatus(404);
     }

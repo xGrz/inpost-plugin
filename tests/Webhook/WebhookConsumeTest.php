@@ -3,12 +3,19 @@
 namespace Xgrz\InPost\Tests\Webhook;
 
 use Illuminate\Support\Facades\Event;
+use Xgrz\InPost\Config\InPostConfig;
 use Xgrz\InPost\Events\InPostShipmentStatusChangedEvent;
 use Xgrz\InPost\Models\InPostShipmentNumber;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class WebhookConsumeTest extends InPostTestCase
 {
+
+    public function test_can_configure_webhook_url()
+    {
+        config(['inpost.webhook_url' => '/inpost/webhook/test/']);
+        $this->assertEquals('inpost/webhook/test', InPostConfig::webhookUrl());;
+    }
 
     public function test_return_bad_request_if_event_is_unknown()
     {
@@ -18,7 +25,7 @@ class WebhookConsumeTest extends InPostTestCase
         config(['inpost.organization' => '1']);
         $response = $this
             ->withServerVariables(['REMOTE_ADDR' => '91.216.25.105'])
-            ->post('/inpost/webhook', $payload);
+            ->post('inpost-webhook', $payload);
 
         $response->assertStatus(400);
     }
@@ -28,7 +35,7 @@ class WebhookConsumeTest extends InPostTestCase
         config(['inpost.organization' => '1']);
         $response = $this
             ->withServerVariables(['REMOTE_ADDR' => '91.216.25.100'])
-            ->post('/inpost/webhook', $this->fakeRequestPayload('ShipmentConfirmed.json'));
+            ->post('inpost-webhook', $this->fakeRequestPayload('ShipmentConfirmed.json'));
 
         $response->assertStatus(404);
         $this->assertDatabaseMissing('inpost_shipment_numbers', [
@@ -42,7 +49,7 @@ class WebhookConsumeTest extends InPostTestCase
         InPostShipmentNumber::create(['inpost_ident' => '49']);
         $response = $this
             ->withServerVariables(['REMOTE_ADDR' => '91.216.25.100'])
-            ->post('/inpost/webhook', $this->fakeRequestPayload('ShipmentConfirmed.json'));
+            ->post('inpost-webhook', $this->fakeRequestPayload('ShipmentConfirmed.json'));
 
         $response->assertStatus(200);
 
@@ -59,7 +66,7 @@ class WebhookConsumeTest extends InPostTestCase
         InPostShipmentNumber::create(['inpost_ident' => '49', 'status' => 'confirmed']);
         $response = $this
             ->withServerVariables(['REMOTE_ADDR' => '91.216.25.100'])
-            ->post('/inpost/webhook', $this->fakeRequestPayload('ShipmentStatusChanged.json'));
+            ->post('inpost-webhook', $this->fakeRequestPayload('ShipmentStatusChanged.json'));
 
         $response->assertStatus(200);
 
@@ -78,7 +85,7 @@ class WebhookConsumeTest extends InPostTestCase
         InPostShipmentNumber::create(['inpost_ident' => '49', 'status' => 'confirmed']);
         $this
             ->withServerVariables(['REMOTE_ADDR' => '91.216.25.100'])
-            ->post('/inpost/webhook', $this->fakeRequestPayload('ShipmentStatusChanged.json'));
+            ->post('/inpost-webhook', $this->fakeRequestPayload('ShipmentStatusChanged.json'));
 
         Event::assertDispatched(InPostShipmentStatusChangedEvent::class, function($event) {
             $this->assertEquals('602677439331630337653846', $event->getTrackingNumber());
@@ -95,4 +102,5 @@ class WebhookConsumeTest extends InPostTestCase
             return true;
         });
     }
+
 }
