@@ -51,9 +51,9 @@ class CustomParcel implements ParcelInterface
     {
         return [
             'dimensions' => [
-                'width' => round($this->width * 10),
-                'height' => round($this->height * 10),
-                'length' => round($this->length * 10),
+                'width' => (int) round($this->width * 10),
+                'height' => (int) round($this->height * 10),
+                'length' => (int) round($this->length * 10),
                 'unit' => 'mm',
             ],
             'weight' => [
