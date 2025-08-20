@@ -308,8 +308,5 @@ class ShipmentFacadeTest extends InPostTestCase
 
         $this->assertEquals('WAW375A', $s->payload()['custom_attributes']['target_point']);
 
-        dump($s->payload());
     }
-
-
 }

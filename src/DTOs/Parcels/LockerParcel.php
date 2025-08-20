@@ -36,6 +36,7 @@ class LockerParcel implements ParcelInterface
             'weight' => $this->parcel_template->getMaxWeight(),
             'quantity' => $this->quantity,
             'non_standard' => false,
+            'template' => $this->parcel_template->value,
         ];
     }
 

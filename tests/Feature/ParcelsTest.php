@@ -43,7 +43,22 @@ class ParcelsTest extends InPostTestCase
         $this->assertIsArray($payload);
         $this->assertArrayHasKey('template', $payload);
         $this->assertEquals(ParcelLockerTemplate::S->value, $payload['template']);
+    }
 
+    public function test_can_get_array_with_template_name_and_dimensions()
+    {
+        $parcels = new Parcels();
+        $parcels->add(ParcelLockerTemplate::S);
+        $arr = $parcels->toArray();
+
+        $this->assertArrayHasKey('width', $arr[0]);
+        $this->assertArrayHasKey('height', $arr[0]);
+        $this->assertArrayHasKey('length', $arr[0]);
+        $this->assertArrayHasKey('weight', $arr[0]);
+        $this->assertArrayHasKey('quantity', $arr[0]);
+        $this->assertArrayHasKey('non_standard', $arr[0]);
+        $this->assertArrayHasKey('template', $arr[0]);
+        $this->assertEquals(ParcelLockerTemplate::S->value, $arr[0]['template']);
     }
 
     public function test_can_get_proper_parcel_payload_for_courier()
@@ -81,6 +96,5 @@ class ParcelsTest extends InPostTestCase
         $this->assertArrayHasKey('id', $payload[2]);
         $this->assertArrayHasKey('template', $payload[2]);
         $this->assertEquals(ParcelLockerTemplate::M->value, $payload[2]['template']);;
-
     }
 }
