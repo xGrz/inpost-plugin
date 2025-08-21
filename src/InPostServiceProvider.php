@@ -4,6 +4,11 @@ namespace Xgrz\InPost;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Xgrz\InPost\Console\Commands\ConfigCommand;
+use Xgrz\InPost\Console\Commands\PointsCommand;
+use Xgrz\InPost\Console\Commands\PublishConfigCommand;
+use Xgrz\InPost\Console\Commands\PublishMigrationsCommand;
+use Xgrz\InPost\Console\Commands\ServicesCommand;
 use Xgrz\InPost\Http\Middleware\IpAddressRestrictionMiddleware;
 
 class InPostServiceProvider extends ServiceProvider
@@ -17,6 +22,14 @@ class InPostServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->commands([
+            PublishConfigCommand::class,
+            PublishMigrationsCommand::class,
+            ConfigCommand::class,
+            ServicesCommand::class,
+            PointsCommand::class,
+        ]);
+
         $this->publishes(
             [__DIR__ . '/../config/inpost.php' => config_path('inpost.php')],
             'inpost-config'
