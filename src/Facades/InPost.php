@@ -75,6 +75,15 @@ class InPost
             ->map(fn($item) => ParcelTemplateDTO::make($item));
     }
 
+    public static function parcelTemplates(): Collection
+    {
+        $locker = self::parcelLockerTemplates()->keyBy('name');
+        $address = self::parcelAddressTemplates()->keyBy('name');
+        $courier = self::parcelCourierTemplates()->keyBy('name');
+
+        return $locker->merge($address)->merge($courier);
+    }
+
     /**
      * @throws ShipXShipmentNotFoundException
      * @throws ConnectionException
