@@ -51,12 +51,12 @@ enum ParcelLockerTemplate: string
 
     public function getLength(): int|float
     {
-        return $this->getDimensions()[0];
+        return $this->getDimensions()[1];
     }
 
     public function getWidth(): int|float
     {
-        return $this->getDimensions()[1];
+        return $this->getDimensions()[0];
     }
 
     public function getHeight(): int|float
@@ -67,12 +67,11 @@ enum ParcelLockerTemplate: string
     public function toArray(): array
     {
         return [
-            'id' => $this->value,
-            'label' => $this->getLabel(),
+            'template' => $this->value,
             'width' => $this->getDimensions()[0],
             'length' => $this->getDimensions()[1],
             'height' => $this->getDimensions()[2],
-            'max_weight' => $this->getMaxWeight(),
+            'weight' => $this->getMaxWeight(),
         ];
     }
 

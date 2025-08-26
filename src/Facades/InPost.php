@@ -11,6 +11,7 @@ use Xgrz\InPost\ApiRequests\Points;
 use Xgrz\InPost\ApiRequests\SendingMethods;
 use Xgrz\InPost\ApiRequests\Statuses;
 use Xgrz\InPost\ApiRequests\Tracking;
+use Xgrz\InPost\DTOs\ParcelTemplateDTO;
 use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Exceptions\ShipXShipmentNotFoundException;
 use Xgrz\InPost\Models\ParcelTemplate;
@@ -58,17 +59,20 @@ class InPost
 
     public static function parcelLockerTemplates(): Collection
     {
-        return ParcelLockerTemplate::optionsForLocker();
+        return ParcelLockerTemplate::optionsForLocker()
+            ->map(fn($item) => ParcelTemplateDTO::make($item));
     }
 
     public static function parcelAddressTemplates(): Collection
     {
-        return ParcelLockerTemplate::optionsForAddress();
+        return ParcelLockerTemplate::optionsForAddress()
+            ->map(fn($item) => ParcelTemplateDTO::make($item));
     }
 
     public static function parcelCourierTemplates(): Collection
     {
-        return collect(ParcelTemplate::all()->toArray());
+        return ParcelTemplate::all()
+            ->map(fn($item) => ParcelTemplateDTO::make($item));
     }
 
     /**

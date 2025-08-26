@@ -13,9 +13,9 @@ class ParcelLockerTest extends InPostTestCase
     {
         $parcel = (LockerParcel::make('small'))->toArray();
 
-        $this->assertEquals(38, $parcel['width']);
+        $this->assertEquals(8, $parcel['width']);
         $this->assertEquals(64, $parcel['height']);
-        $this->assertEquals(8, $parcel['length']);
+        $this->assertEquals(38, $parcel['length']);
         $this->assertEquals(25, $parcel['weight']);
         $this->assertEquals(1, $parcel['quantity']);
         $this->assertFalse($parcel['non_standard']);
