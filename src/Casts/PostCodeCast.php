@@ -29,8 +29,9 @@ class PostCodeCast implements CastsAttributes
         return self::toNumeric($value);
     }
 
-    public static function isPostCode(string $value): bool
+    public static function isPostCode(?string $value): bool
     {
+        if (empty($value)) return false;
         return Str::of($value)->replaceMatches('/\D+/', '')->length() == 5;
     }
 
