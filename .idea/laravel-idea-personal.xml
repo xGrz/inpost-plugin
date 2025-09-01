@@ -9,6 +9,13 @@
     <option name="generationStringOptionValues">
       <map>
         <entry key="createController.singleAction" value="1" />
+        <entry key="createObserver.method_created" value="" />
+        <entry key="createObserver.method_creating" value="1" />
+        <entry key="createObserver.method_deleted" value="" />
+        <entry key="createObserver.method_deleting" value="1" />
+        <entry key="createObserver.method_restored" value="" />
+        <entry key="createObserver.method_restoring" value="1" />
+        <entry key="createObserver.method_updated" value="" />
       </map>
     </option>
   </component>

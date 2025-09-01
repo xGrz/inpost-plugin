@@ -10,8 +10,10 @@ return new class extends Migration {
         Schema::create('inpost_services', function(Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
+            $table->string('label')->nullable();
             $table->string('description');
             $table->boolean('active');
+            $table->integer('position')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

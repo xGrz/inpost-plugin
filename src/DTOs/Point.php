@@ -44,6 +44,11 @@ class Point
         return $this;
     }
 
+    public function isMachine(): bool
+    {
+        return (bool) $this->physical_type_mapped;
+    }
+
     public static function fromInPostPointModel(InPostPoint $inPostPoint, ?int $distance = NULL): static
     {
         return new static($inPostPoint->toArray());
