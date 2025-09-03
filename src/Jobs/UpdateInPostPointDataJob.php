@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Xgrz\InPost\Enums\PointStatus;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Models\InPostPoint;
@@ -83,14 +83,34 @@ class UpdateInPostPointDataJob implements ShouldQueue
         $apiPoints = $this->fetchApiPoints();
         $localPoints = InPostPoint::whereIn('name', $this->pointNames)->get();
 
-        DB::transaction(function() use ($apiPoints, $localPoints) {
-            $apiPoints->each(function($point) use ($localPoints) {
+        $apiPoints->each(function($point) use ($localPoints) {
+            try {
                 $localPoint = $localPoints->firstWhere('name', $point['name']) ?? new InPostPoint();
                 $localPoint->fill($this->buildPointPayload($point));
                 if ($localPoint->isDirty()) {
                     $localPoint->save();
                 }
-            });
+            } catch (\Exception $e) {
+                Log::error($e->getMessage(), $this->buildPointPayload($point));
+            }
         });
     }
+
+
+//    public function handle(): void
+//    {
+//        $apiPoints = $this->fetchApiPoints();
+//        $localPoints = InPostPoint::whereIn('name', $this->pointNames)->get();
+//
+//        DB::transaction(function() use ($apiPoints, $localPoints) {
+//            $apiPoints->each(function($point) use ($localPoints) {
+//                $localPoint = $localPoints->firstWhere('name', $point['name']) ?? new InPostPoint();
+//                $localPoint->fill($this->buildPointPayload($point));
+//                if ($localPoint->isDirty()) {
+//                    $localPoint->save();
+//                }
+//            });
+//        });
+//    }
+
 }

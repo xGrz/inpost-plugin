@@ -22,7 +22,10 @@ class InPostServices
 
     public function available(): Collection
     {
-        return InPostService::where('active', true)->get();
+        return InPostService::query()
+            ->where('active', true)
+            ->orderBy('position')
+            ->get();
     }
 
     public function additionalList(InPostService $service): Collection
@@ -52,4 +55,81 @@ class InPostServices
         $additionalService->save();
     }
 
+
+    public function additionalServicesSchema(InPostService|string $service): Collection
+    {
+        $schema = [];
+
+        $service = is_string($service)
+            ? InPostService::find($service)
+            : $service;
+
+        if (! $service || ! $service->active) {
+            return collect();
+        }
+
+        $services = self::additionalAvailable($service)->keyBy('ident');
+
+
+        if ($services->has('cod')) {
+            $schema[] = [
+                'id' => $services['cod']['ident'],
+                'type' => 'money',
+                'label' => $services['cod']['name'],
+                'description' => $services['cod']['description'],
+            ];
+        }
+        if ($services->has('insurance')) {
+            $schema[] = [
+                'id' => $services['insurance']['ident'],
+                'type' => 'money',
+                'label' => $services['insurance']['name'],
+                'description' => $services['insurance']['description'],
+            ];
+        }
+        if ($services->has('sms')) {
+            $schema[] = [
+                'id' => $services['sms']['ident'],
+                'type' => 'checkbox',
+                'label' => $services['sms']['name'],
+                'description' => $services['sms']['description'],
+            ];
+        }
+        if ($services->has('email')) {
+            $schema[] = [
+                'id' => $services['email']['ident'],
+                'type' => 'checkbox',
+                'label' => $services['email']['name'],
+                'description' => $services['email']['description'],
+            ];
+        }
+        if ($services->has('saturday')) {
+            $schema[] = [
+                'id' => $services['saturday']['ident'],
+                'type' => 'checkbox',
+                'label' => $services['saturday']['name'],
+                'description' => $services['saturday']['description'],
+            ];
+        }
+        if ($services->has('dor1720')) {
+            $schema[] = [
+                'id' => $services['dor1720']['ident'],
+                'type' => 'checkbox',
+                'label' => $services['dor1720']['name'],
+                'description' => $services['dor1720']['description'],
+            ];
+        }
+
+        $hourServices = $services->filter(fn($key) => str($key->ident)->startsWith('forhour_'));
+
+        if ($hourServices->isNotEmpty()) {
+            $schema[] = [
+                'id' => 'forhour',
+                'type' => 'selectable',
+                'description' => '',
+                'options' => $hourServices->map(fn($service) => ['id' => $service->ident, 'label' => $service->name])->toArray()
+            ];
+        }
+        return collect($schema)->keyBy('id');
+    }
 }
