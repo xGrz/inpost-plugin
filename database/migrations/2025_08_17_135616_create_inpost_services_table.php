@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->string('id')->primary();
             $table->string('name');
             $table->string('label')->nullable();
+            $table->string('label_description')->nullable();
             $table->string('description');
             $table->boolean('active');
             $table->integer('position')->nullable();
