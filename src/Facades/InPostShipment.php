@@ -24,12 +24,12 @@ class InPostShipment
     private ?string $comments = NULL;
     private bool $only_choice_of_offer = false;
 
-    public static function make(): static
+    public static function make(?string $shipmentService = NULL): static
     {
-        return new static();
+        return new static($shipmentService);
     }
 
-    public function __construct()
+    public function __construct(?string $shipmentService = NULL)
     {
         $this->sender = new Sender();
         $this->receiver = new Receiver();
@@ -37,6 +37,9 @@ class InPostShipment
         $this->cash_on_delivery = new CashOnDelivery();
         $this->insurance = new Insurance();
         $this->service = ShipmentService::make();
+        if (!empty($shipmentService)) {
+            $this->service->setService($shipmentService);
+        }
     }
 
     public function comment(string $comment): static
