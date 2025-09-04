@@ -24,7 +24,7 @@ abstract class AmountValues
      */
     public function set(int|float|string|null $amount, ?string $currency = 'PLN'): static
     {
-        if (empty($amount)) return $this;
+        if (is_null($amount)) $amount = 0;
         if (is_string($amount)) {
             $baseAmount = $amount;
             $amount = str($amount)
