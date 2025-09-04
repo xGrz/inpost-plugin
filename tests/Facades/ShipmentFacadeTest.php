@@ -288,7 +288,7 @@ class ShipmentFacadeTest extends InPostTestCase
         $this->assertEquals('Second', $arr['cost_center']);
         $this->assertTrue($arr['is_return']);
         $this->assertTrue($arr['only_choice_of_offer']);
-        $this->assertEquals(600, $arr['insurance']);
+        $this->assertEquals(1100, $arr['insurance']);
         $this->assertEquals('PLN', $arr['insurance_currency']);
         $this->assertEquals(1100, $arr['cod']);
         $this->assertEquals('PLN', $arr['cod_currency']);
