@@ -79,8 +79,9 @@ abstract class BaseAddress implements PayloadInterface
         };
     }
 
-    private function divideName(string $name): void
+    private function divideName(?string $name): void
     {
+        if (is_null($name)) return;
         $nameArr = str($name)->explode(' ');
         $this->meta['first_name'] = $nameArr->first();
         $this->meta['last_name'] = str($name)->replace($nameArr->first(), '')->trim()->toString();
