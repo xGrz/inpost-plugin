@@ -22,8 +22,9 @@ abstract class AmountValues
     /**
      * @throws ShipXException
      */
-    public function set(int|float|string $amount, ?string $currency = 'PLN'): static
+    public function set(int|float|string|null $amount, ?string $currency = 'PLN'): static
     {
+        if (empty($amount)) return $this;
         if (is_string($amount)) {
             $baseAmount = $amount;
             $amount = str($amount)
@@ -38,7 +39,7 @@ abstract class AmountValues
         return $this;
     }
 
-    public function get(): float
+    public function get(): ?float
     {
         return $this->amount / 100;
     }
