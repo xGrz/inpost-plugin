@@ -3,6 +3,7 @@
 namespace Xgrz\InPost\ShipmentComponents;
 
 use Illuminate\Support\Str;
+use Xgrz\InPost\Exceptions\ShipXException;
 
 /**
  * @property int    $amount
@@ -18,8 +19,20 @@ abstract class AmountValues
         return $this->amount > 0;
     }
 
-    public function set(int|float $amount, ?string $currency = 'PLN'): static
+    /**
+     * @throws ShipXException
+     */
+    public function set(int|float|string $amount, ?string $currency = 'PLN'): static
     {
+        if (is_string($amount)) {
+            $baseAmount = $amount;
+            $amount = str($amount)
+                ->replaceMatches('/[^0-9.,]/', '')
+                ->replaceFirst(',', '.')
+                ->toString();
+            if (! is_numeric($amount)) throw new ShipXException('Invalid amount value: [' . $baseAmount . '] format.');
+            $amount = (float)$amount;
+        }
         $this->amount = Str::of($amount * 100)->toInteger();
         $this->currency = $currency;
         return $this;
