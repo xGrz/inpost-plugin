@@ -24,6 +24,11 @@ class InPostShipment
     private ?string $comments = NULL;
     private bool $only_choice_of_offer = false;
 
+    public static function make(): static
+    {
+        return new static();
+    }
+
     public function __construct()
     {
         $this->sender = new Sender();
@@ -115,6 +120,9 @@ class InPostShipment
 
     public function toArray(): array
     {
+        self::applyCashOnDeliveryInsurance();
+        self::applyInsuranceCostSaver();
+
         $data = [];
         $sender = $this->sender->toArray();
 
