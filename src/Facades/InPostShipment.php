@@ -2,6 +2,9 @@
 
 namespace Xgrz\InPost\Facades;
 
+use Xgrz\InPost\ApiRequests\SendShipment;
+use Xgrz\InPost\ApiResponses\ShipmentCreated;
+use Xgrz\InPost\ApiResponses\ShipmentCreateFail;
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\ShipmentComponents\Address\Receiver;
 use Xgrz\InPost\ShipmentComponents\Address\Sender;
@@ -24,20 +27,20 @@ class InPostShipment
     private ?string $comments = NULL;
     private bool $only_choice_of_offer = false;
 
-    public static function make(?string $shipmentService = NULL): static
+    public static function make(?string $shipmentService = NULL, ?Receiver $receiver = NULL, ?Sender $sender = NULL): static
     {
-        return new static($shipmentService);
+        return new static($shipmentService, $receiver, $sender);
     }
 
-    public function __construct(?string $shipmentService = NULL)
+    public function __construct(?string $shipmentService = NULL, ?Receiver $receiver = NULL, ?Sender $sender = NULL)
     {
-        $this->sender = new Sender();
-        $this->receiver = new Receiver();
+        $this->sender = $sender ?? new Sender();
+        $this->receiver = $receiver ?? new Receiver();
         $this->parcels = Parcels::make();
         $this->cash_on_delivery = new CashOnDelivery();
         $this->insurance = new Insurance();
         $this->service = ShipmentService::make();
-        if (!empty($shipmentService)) {
+        if (! empty($shipmentService)) {
             $this->service->setService($shipmentService);
         }
     }
@@ -72,13 +75,13 @@ class InPostShipment
     public function targetPoint(string $targetPoint, ?string $email = NULL, ?string $phone = NULL, ?string $serviceName = NULL): static
     {
         $this->service->targetPoint($targetPoint);
-        if(!empty($email)) {
+        if (! empty($email)) {
             $this->receiver->email = $email;
         }
-        if(!empty($phone)) {
+        if (! empty($phone)) {
             $this->receiver->phone = $phone;
         }
-        if(!empty($serviceName)) {
+        if (! empty($serviceName)) {
             $this->service->setService($serviceName);
         }
         return $this;
@@ -168,6 +171,11 @@ class InPostShipment
         if ($this->cash_on_delivery->isFilled() && $this->cash_on_delivery->get() > $this->insurance->get()) {
             $this->insurance->set($this->cash_on_delivery->get());
         }
+    }
+
+    public function send(): ShipmentCreateFail|ShipmentCreated
+    {
+        return (new SendShipment())->post($this);
     }
 
 }
