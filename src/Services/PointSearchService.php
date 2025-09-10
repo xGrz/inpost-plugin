@@ -50,7 +50,7 @@ class PointSearchService
         if (empty($query)) return;
         $this->searchPostCodes = collect(explode(' ', $query))
             ->filter(fn($word) => PostCodeCast::isPostCode($word))
-            ->map(fn($word) => PostCodeCast::format($word))
+            ->map(fn($word) => PostCodeCast::formatToPostCode($word))
             ->unique()
             ->flatten();
     }

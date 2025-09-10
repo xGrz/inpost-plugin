@@ -71,7 +71,7 @@ abstract class BaseAddress implements PayloadInterface
             'phone' => $this->meta['phone'],
             'email' => $this->meta['email'],
             'city' => $this->address['city'],
-            'post_code' => PostCodeCast::format($this->address['post_code']),
+            'post_code' => PostCodeCast::formatToPostCode($this->address['post_code']),
             'street' => $this->address['street'],
             'building_number' => $this->address['building_number'],
             'country_code' => $this->address['country_code'],
@@ -105,7 +105,7 @@ abstract class BaseAddress implements PayloadInterface
                 $address['country_code'] = 'PL'; // fill default country code
             }
             if (isset($address['post_code'])) {
-                $address['post_code'] = PostCodeCast::format($address['post_code']);
+                $address['post_code'] = PostCodeCast::formatToPostCode($address['post_code']);
             }
             $payload['address'] = $address;
         }
