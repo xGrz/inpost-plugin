@@ -2,6 +2,7 @@
 
 namespace Xgrz\InPost;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Xgrz\InPost\Console\Commands\ConfigCommand;

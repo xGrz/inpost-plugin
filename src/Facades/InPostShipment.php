@@ -45,13 +45,13 @@ class InPostShipment
         }
     }
 
-    public function comment(string $comment): static
+    public function comment(?string $comment): static
     {
         $this->comments = $comment;
         return $this;
     }
 
-    public function reference(string $reference): static
+    public function reference(?string $reference): static
     {
         $this->reference = $reference;
         return $this;
@@ -90,8 +90,11 @@ class InPostShipment
     /**
      * @throws ShipXException
      */
-    public function costCenter(string $costCenterName): static
+    public function costCenter(?string $costCenterName): static
     {
+        if (empty($costCenterName)) {
+            return $this;
+        }
         $exists = InPost::costCenters()
             ->get()
             ->filter(fn($costCenter) => $costCenter['name'] === $costCenterName)
@@ -111,7 +114,7 @@ class InPostShipment
         self::applyCashOnDeliveryInsurance();
         self::applyInsuranceCostSaver();
         return [
-                'sender' => $this->sender?->payload(),
+                'sender' => $this->sender->payload(),
                 'receiver' => $this->receiver->payload(),
                 'parcels' => $this->parcels->payload(),
                 'cod' => $this->cash_on_delivery->payload(),

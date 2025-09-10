@@ -31,8 +31,11 @@ class ShipXWebhookController
 
     private static function shipmentConfirmed(array $webhookPayload)
     {
+        Log::info('Shipment confirmed', $webhookPayload);
         $shipment = InPostShipmentNumber::find($webhookPayload['shipment_id']);
+
         if (! $shipment) {
+            Log::error('Shipment not found', $webhookPayload);
             return response('Not found', 404);
         }
 
@@ -40,6 +43,8 @@ class ShipXWebhookController
             'tracking_number' => $webhookPayload['tracking_number'],
             'status' => 'confirmed',
         ]);
+
+        InPostShipmentStatusChangedEvent::dispatch($shipment);
 
         return response('', 200);
     }
@@ -61,7 +66,7 @@ class ShipXWebhookController
         }
         $shipment->save();
 
-        InPostShipmentStatusChangedEvent::dispatch($shipment->tracking_number, $shipment->status);
+        InPostShipmentStatusChangedEvent::dispatch($shipment);
 
         return response('', 200);
     }

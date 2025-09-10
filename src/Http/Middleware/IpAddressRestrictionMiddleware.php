@@ -9,6 +9,10 @@ class IpAddressRestrictionMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        if (app()->environment('local')) {
+            return $next($request);
+        }
+
         $allowedSubnet = config('inpost.webhook_ip_restriction', '127.0.0.0/24');
 
         if (! $this->ipInSubnet($request->ip(), $allowedSubnet)) {

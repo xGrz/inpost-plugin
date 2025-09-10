@@ -26,6 +26,7 @@ abstract class AmountValues
     {
         if (is_null($amount)) $amount = 0;
         if (is_string($amount)) {
+            if (empty($amount)) return $this; // todo: test this.
             $baseAmount = $amount;
             $amount = str($amount)
                 ->replaceMatches('/[^0-9.,]/', '')

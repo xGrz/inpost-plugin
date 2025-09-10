@@ -4,27 +4,33 @@ namespace Xgrz\InPost\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Xgrz\InPost\Facades\InPost;
+use Xgrz\InPost\Models\InPostShipmentNumber;
 
 class InPostShipmentStatusChangedEvent
 {
     use Dispatchable;
 
-    public function __construct(protected string $trackingNumber, protected string $status)
+    public function __construct(public InPostShipmentNumber $shipment)
     {
     }
 
-    public function getTrackingNumber(): string
+    public function getInPostIdent()
     {
-        return $this->trackingNumber;
+        return $this->shipment->inpost_ident;
     }
 
-    public function getStatus(): string
+    public function getTrackingNumber(): ?string
     {
-        return $this->status;
+        return $this->shipment->tracking_number;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->shipment->status;
     }
 
     public function getStatusDetails(): ?array
     {
-        return InPost::getStatusDescription($this->status);
+        return InPost::getStatusDescription($this->shipment->status);
     }
 }

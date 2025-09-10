@@ -55,4 +55,22 @@ class PostCodeCastTest extends InPostTestCase
         );
     }
 
+    public function test_can_cast_empty_post_code()
+    {
+        $cast = new PostCodeCast();
+        $model = new InPostPoint();
+
+        $this->assertEquals(
+            '',
+            $cast->set($model, 'test', null, [])
+        );
+
+        $this->assertEquals(
+            null,
+            $cast->set($model, 'test', null, [])
+        );
+
+
+    }
+
 }

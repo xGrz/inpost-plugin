@@ -31,7 +31,7 @@ class PostCodeCast implements CastsAttributes
 
     public static function isPostCode(?string $value): bool
     {
-        if (empty($value)) return false;
+        if (empty($value)) return true;
         return Str::of($value)->replaceMatches('/\D+/', '')->length() == 5;
     }
 

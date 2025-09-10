@@ -11,3 +11,5 @@ Route::middleware(['inpost-ip-restriction', 'api'])
         Route::get('', [ShipXWebhookController::class, 'index']);
         Route::post('', [ShipXWebhookController::class, 'consumeWebhook']);
     });
+
+

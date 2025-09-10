@@ -43,6 +43,25 @@ class InPostServices
             ->get();
     }
 
+    public function hasAdditionalService(InPostService|string $service, InPostAdditionalService|string $additionalService): bool
+    {
+        if (! $service instanceof InPostService) {
+            $service = InPostService::find($service);
+            if (! $service) return false;
+        }
+        if (! $service->active) return false;
+
+        if (! $additionalService instanceof InPostAdditionalService) {
+            $additionalService = InPostAdditionalService::where('ident', $additionalService)
+                ->where('inpost_service_id', $service->id)
+                ->first();
+            if (! $additionalService) return false;
+        }
+        if (! $additionalService->active) return false;
+
+        return true;
+    }
+
     public function changeServiceAvailability(InPostService $service, ?bool $active = NULL): void
     {
         $service->active = $active ?? ! $service->active;
@@ -69,7 +88,6 @@ class InPostServices
         }
 
         $services = self::additionalAvailable($service)->keyBy('ident');
-
 
         if ($services->has('cod')) {
             $schema[] = [
@@ -127,7 +145,7 @@ class InPostServices
                 'id' => 'forhour',
                 'type' => 'selectable',
                 'description' => '',
-                'options' => $hourServices->map(fn($service) => ['id' => $service->ident, 'label' => $service->name])->toArray()
+                'options' => $hourServices->map(fn($service) => ['id' => $service->ident, 'label' => $service->name])->toArray(),
             ];
         }
         return collect($schema)->keyBy('id');
