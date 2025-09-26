@@ -2,14 +2,12 @@
 
 namespace Xgrz\InPost;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Xgrz\InPost\Console\Commands\ConfigCommand;
 use Xgrz\InPost\Console\Commands\PointsCommand;
 use Xgrz\InPost\Console\Commands\PublishConfigCommand;
 use Xgrz\InPost\Console\Commands\PublishMigrationsCommand;
-use Xgrz\InPost\Console\Commands\ServicesCommand;
 use Xgrz\InPost\Http\Middleware\IpAddressRestrictionMiddleware;
 
 class InPostServiceProvider extends ServiceProvider
@@ -27,7 +25,6 @@ class InPostServiceProvider extends ServiceProvider
             PublishConfigCommand::class,
             PublishMigrationsCommand::class,
             ConfigCommand::class,
-            ServicesCommand::class,
             PointsCommand::class,
         ]);
 
@@ -36,7 +33,6 @@ class InPostServiceProvider extends ServiceProvider
             'inpost-config'
         );
         Route::aliasMiddleware('inpost-ip-restriction', IpAddressRestrictionMiddleware::class);
-
     }
 
     private function setupMigrations(): void

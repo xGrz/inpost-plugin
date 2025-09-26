@@ -21,10 +21,6 @@
             <directory>tests/Parcels</directory>
         </testsuite>
 
-        <testsuite name="Jobs">
-            <directory>tests/Jobs</directory>
-        </testsuite>
-
         <testsuite name="Facades">
             <directory>tests/Facades</directory>
         </testsuite>

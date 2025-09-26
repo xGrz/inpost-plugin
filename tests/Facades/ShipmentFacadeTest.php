@@ -7,9 +7,6 @@ use Xgrz\InPost\Enums\ParcelLockerTemplate;
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Facades\InPostShipment;
-use Xgrz\InPost\Jobs\UpdateInPostServicesJob;
-use Xgrz\InPost\ShipmentComponents\Address\Receiver;
-use Xgrz\InPost\ShipmentComponents\Address\Sender;
 use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
 use Xgrz\InPost\ShipmentComponents\Parcels\LockerParcel;
 use Xgrz\InPost\Tests\InPostTestCase;
@@ -26,7 +23,6 @@ class ShipmentFacadeTest extends InPostTestCase
             'https://sandbox-api-shipx-pl.easypack24.net/v1/services' => $this->fromFile('ServicesResponse.json'),
             'https://sandbox-api-shipx-pl.easypack24.net/v1/organizations/*' => $this->fromFile('CostCentersListResponse.json'),
         ]);
-        (new UpdateInPostServicesJob)->handle();
         $this->costsCenter = InPost::costCenters()->get()[1];
     }
 

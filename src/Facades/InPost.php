@@ -9,6 +9,7 @@ use Xgrz\InPost\ApiRequests\Label;
 use Xgrz\InPost\ApiRequests\Organization;
 use Xgrz\InPost\ApiRequests\Points;
 use Xgrz\InPost\ApiRequests\SendingMethods;
+use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
 use Xgrz\InPost\ApiRequests\Tracking;
 use Xgrz\InPost\DTOs\ParcelTemplateDTO;
@@ -39,9 +40,14 @@ class InPost
         return self::statuses()->keyBy('name')->get($statusName);
     }
 
-    public static function services(): InPostServices
+    public static function services(): Collection
     {
-        return new InPostServices();
+        return cache()
+            ->remember(
+                'inpost:services',
+                now()->endOfDay(),
+                fn() => collect((new Services)->get() ?? [])->keyBy('id')
+            );
     }
 
     public static function costCenters(): CostCenter
@@ -82,6 +88,11 @@ class InPost
         $courier = self::parcelCourierTemplates()->keyBy('name');
 
         return $locker->merge($address)->merge($courier);
+    }
+
+    public static function parcelTemplateOptions(): Collection
+    {
+        return self::parcelTemplates()->map(fn($item) => ['id' => $item->name, 'label' => $item->label]);
     }
 
     /**
