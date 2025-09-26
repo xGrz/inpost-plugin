@@ -3,12 +3,11 @@
 namespace Xgrz\InPost\Tests\Facades;
 
 use Illuminate\Support\Facades\Http;
-use Xgrz\InPost\Enums\ParcelLockerTemplate;
+use Xgrz\InPost\Enums\InPostParcelLocker;
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Facades\InPostShipment;
-use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
-use Xgrz\InPost\ShipmentComponents\Parcels\LockerParcel;
+use Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel;
 use Xgrz\InPost\Tests\InPostTestCase;
 
 class ShipmentFacadeTest extends InPostTestCase
@@ -100,25 +99,16 @@ class ShipmentFacadeTest extends InPostTestCase
     public function testCanAssignParcelLocker()
     {
         $s = new InPostShipment();
-        $s->parcels->add(LockerParcel::make(ParcelLockerTemplate::S));
+        $s->parcels->add(InPostParcelLocker::M);
 
         $this->assertCount(1, $s->payload()['parcels']);
-        $this->assertSame(ParcelLockerTemplate::S->value, $s->payload()['parcels']['template']);
-    }
-
-    public function testCanAssignParcelLockerFromEnumTemplate()
-    {
-        $s = new InPostShipment();
-        $s->parcels->add(ParcelLockerTemplate::M);
-
-        $this->assertCount(1, $s->payload()['parcels']);
-        $this->assertSame(ParcelLockerTemplate::M->value, $s->payload()['parcels']['template']);
+        $this->assertSame(InPostParcelLocker::M->value, $s->payload()['parcels']['template']);
     }
 
     public function testCanAssignParcelsForCourier()
     {
         $s = new InPostShipment();
-        $s->parcels->add(CourierParcel::make(40, 20, 10, 5, 1, false));
+        $s->parcels->add(InPostParcel::make(40, 20, 10, 5, 1, false));
 
         $this->assertCount(1, $s->payload()['parcels']);
         $this->assertSame(400, $s->payload()['parcels'][0]['dimensions']['width']);
@@ -250,7 +240,7 @@ class ShipmentFacadeTest extends InPostTestCase
             $s->receiver->$key = $value;
         }
 
-        $s->parcels->add(CourierParcel::make(40, 20, 10, 5, 2, true));
+        $s->parcels->add(InPostParcel::make(40, 20, 10, 5, 2, true));
         $s->insurance->set(600);
         $s->cash_on_delivery->set(1100);
         $s->service
@@ -305,7 +295,6 @@ class ShipmentFacadeTest extends InPostTestCase
         $this->assertEquals('inpost_locker_standard', $s->payload()['service']);
 
         $this->assertEquals('WAW375A', $s->payload()['custom_attributes']['target_point']);
-
     }
 
 }

@@ -4,17 +4,16 @@ namespace Xgrz\InPost\ShipmentComponents\Parcels;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Xgrz\InPost\Enums\ParcelLockerTemplate;
-use Xgrz\InPost\Interfaces\ParcelInterface;
+use Xgrz\InPost\Enums\InPostParcelLocker;
 use Xgrz\InPost\Interfaces\PayloadInterface;
 
 class Parcels implements PayloadInterface
 {
-    private Collection $parcels;
+    private Collection $items;
 
     public function __construct()
     {
-        $this->parcels = collect();
+        $this->items = collect();
     }
 
     public static function make(): static
@@ -22,32 +21,28 @@ class Parcels implements PayloadInterface
         return new static();
     }
 
-    public function add(ParcelInterface|ParcelLockerTemplate $parcel): static
+    public function add(InPostParcel|InPostParcelLocker $parcel): static
     {
-        if ($parcel instanceof ParcelLockerTemplate) {
-            $parcel = LockerParcel::make($parcel);
-        }
-
-        $this->parcels->push($parcel);
+        $this->items->push($parcel);
         return $this;
     }
 
     private function isParcelLockerPackage(): bool
     {
-        return $this->parcels->count() === 1
-            && $this->parcels->first() instanceof LockerParcel
-            && $this->parcels->first()->getQuantity() === 1;
+        return $this->items->count() === 1
+            && $this->items->first() instanceof InPostParcelLocker
+            && $this->items->first()->getQuantity() === 1;
     }
 
     public function payload(): array
     {
         if (self::isParcelLockerPackage()) {
-            return $this->parcels->first()->payload();
+            return $this->items->first()->payload();
         }
 
         $payload = collect();
-        $this->parcels
-            ->each(function(ParcelInterface $parcel) use ($payload) {
+        $this->items
+            ->each(function(InPostParcel|InPostParcelLocker $parcel) use ($payload) {
                 for ($i = 1; $i <= $parcel->getQuantity(); $i++) {
                     $payload->push($parcel->payload());
                 }
@@ -60,7 +55,7 @@ class Parcels implements PayloadInterface
 
     public function toArray(): array
     {
-        return $this->parcels->map(fn(ParcelInterface $parcel) => $parcel->toArray())->toArray();
+        return $this->items->map(fn(InPostParcel|InPostParcelLocker $parcel) => $parcel->toArray())->toArray();
     }
 }
 

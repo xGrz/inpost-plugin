@@ -4,28 +4,24 @@ namespace Xgrz\InPost\ShipmentComponents\Parcels;
 
 use Xgrz\InPost\Interfaces\ParcelInterface;
 
-class CourierParcel implements ParcelInterface
+class InPostParcel implements ParcelInterface
 {
-    protected int $width;
-    protected int $height;
-    protected int $length;
-    protected float $weight;
-    protected int $quantity = 1;
-    protected bool $non_standard;
+
 
     public static function make(int $width, int $height, int $length, int|float $weight, int $quantity = 1, bool $is_non_standard = false): static
     {
         return new static($width, $height, $length, $weight, $quantity, $is_non_standard);
     }
 
-    public function __construct(int $width, int $height, int $length, int|float $weight, int $quantity = 1, bool $is_non_standard = false)
+    public function __construct(
+        protected int       $width,
+        protected int       $height,
+        protected int       $length,
+        protected int|float $weight,
+        protected int       $quantity = 1,
+        protected bool      $non_standard = false
+    )
     {
-        $this->width = $width;
-        $this->height = $height;
-        $this->length = $length;
-        $this->weight = $weight;
-        $this->quantity = $quantity;
-        $this->non_standard = $is_non_standard;
     }
 
     public function __set(string $name, int|float|bool $value): void
@@ -44,6 +40,7 @@ class CourierParcel implements ParcelInterface
             'weight' => $this->weight,
             'quantity' => $this->quantity,
             'non_standard' => $this->non_standard,
+            'template' => NULL
         ];
     }
 
@@ -51,13 +48,13 @@ class CourierParcel implements ParcelInterface
     {
         return [
             'dimensions' => [
-                'width' => (int) round($this->width * 10),
-                'height' => (int) round($this->height * 10),
-                'length' => (int) round($this->length * 10),
+                'width' => $this->width * 10,
+                'height' => $this->height * 10,
+                'length' => $this->length * 10,
                 'unit' => 'mm',
             ],
             'weight' => [
-                'amount' => round($this->weight, 1),
+                'amount' => $this->weight,
                 'unit' => 'kg',
             ],
             'non_standard' => $this->non_standard,

@@ -52,8 +52,9 @@ $shipment->receiver->email = 'inpost@inpost.pl'; // optional
 
 ## 3. Add parcels
 From Parcel locker template
+
 ```php
-$shipment->parcels->add(\Xgrz\InPost\Enums\ParcelLockerTemplate::L);
+$shipment->parcels->add(\Xgrz\InPost\Enums\InPostParcelLocker::L);
 ```
 
 Custom parcel

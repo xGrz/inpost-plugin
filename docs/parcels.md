@@ -7,10 +7,10 @@ Parcel templates are used to define parcels for shipments.
 Defined for parcel locker shipments. Possible values:
 
 ```php
-Xgrz\Inpost\Enums\ParcelLockerTemplate::S;
-Xgrz\Inpost\Enums\ParcelLockerTemplate::M;
-Xgrz\Inpost\Enums\ParcelLockerTemplate::L;
-Xgrz\Inpost\Enums\ParcelLockerTemplate::XL;
+Xgrz\Inpost\Enums\InPostParcelLocker::S;
+Xgrz\Inpost\Enums\InPostParcelLocker::M;
+Xgrz\Inpost\Enums\InPostParcelLocker::L;
+Xgrz\Inpost\Enums\InPostParcelLocker::XL;
 ```
 You can use them also as templates for Courier shipments.
 
@@ -19,7 +19,7 @@ You can use them also as templates for Courier shipments.
 
 Use the following model:
 ```php
-\Xgrz\InPost\Models\ParcelTemplate::class;
+\App\Models\ParcelTemplate::class;
 ```
 Create your own templates describing parcel size/weight and assign them to the parcel.
 
@@ -27,10 +27,11 @@ Create your own templates describing parcel size/weight and assign them to the p
 
 ## Custom parcel (only courier shipments)
 One time parcel can be defined as
-```php
-use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
 
-CourierParcel::make(
+```php
+use Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel;
+
+InPostParcel::make(
     <int:$width>, 
     <int:$height>, 
     <int:$length>, 

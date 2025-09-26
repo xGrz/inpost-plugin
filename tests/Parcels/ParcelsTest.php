@@ -2,9 +2,8 @@
 
 namespace Xgrz\InPost\Tests\Parcels;
 
-use Xgrz\InPost\Enums\ParcelLockerTemplate;
-use Xgrz\InPost\ShipmentComponents\Parcels\CourierParcel;
-use Xgrz\InPost\ShipmentComponents\Parcels\LockerParcel;
+use Xgrz\InPost\Enums\InPostParcelLocker;
+use Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel;
 use Xgrz\InPost\ShipmentComponents\Parcels\Parcels;
 use Xgrz\InPost\Tests\InPostTestCase;
 
@@ -13,19 +12,19 @@ class ParcelsTest extends InPostTestCase
     public function test_can_add_parcel_locker_to_parcels()
     {
         $parcels = new Parcels();
-        $parcels->add(LockerParcel::make(ParcelLockerTemplate::M));
+        $parcels->add(InPostParcelLocker::M);
 
         $payload = $parcels->payload();
 
         $this->assertIsArray($payload);
-        $this->assertEquals(ParcelLockerTemplate::M->value, $payload['template']);
+        $this->assertEquals(InPostParcelLocker::M->value, $payload['template']);
     }
 
     public function test_can_add_custom_parcel_to_parcels()
     {
         $parcels = new Parcels();
-        $parcels->add(CourierParcel::make(38, 64, 8, 25, 2, true));
-        $parcels->add(LockerParcel::make(ParcelLockerTemplate::M));
+        $parcels->add(InPostParcel::make(38, 64, 8, 25, 2, true));
+        $parcels->add(InPostParcelLocker::M);
 
         $payload = $parcels->payload();
 
@@ -36,19 +35,19 @@ class ParcelsTest extends InPostTestCase
     public function test_can_get_proper_parcel_payload_for_parcel_locker()
     {
         $parcels = new Parcels();
-        $parcels->add(LockerParcel::make(ParcelLockerTemplate::S));
+        $parcels->add(InPostParcelLocker::M);
 
         $payload = $parcels->payload();
 
         $this->assertIsArray($payload);
         $this->assertArrayHasKey('template', $payload);
-        $this->assertEquals(ParcelLockerTemplate::S->value, $payload['template']);
+        $this->assertEquals(InPostParcelLocker::M->value, $payload['template']);
     }
 
     public function test_can_get_array_with_template_name_and_dimensions()
     {
         $parcels = new Parcels();
-        $parcels->add(ParcelLockerTemplate::S);
+        $parcels->add(InPostParcelLocker::S);
         $arr = $parcels->toArray();
 
         $this->assertArrayHasKey('width', $arr[0]);
@@ -58,14 +57,14 @@ class ParcelsTest extends InPostTestCase
         $this->assertArrayHasKey('quantity', $arr[0]);
         $this->assertArrayHasKey('non_standard', $arr[0]);
         $this->assertArrayHasKey('template', $arr[0]);
-        $this->assertEquals(ParcelLockerTemplate::S->value, $arr[0]['template']);
+        $this->assertEquals(InPostParcelLocker::S->value, $arr[0]['template']);
     }
 
     public function test_can_get_proper_parcel_payload_for_courier()
     {
         $parcels = new Parcels();
-        $parcels->add(CourierParcel::make(38, 64, 8, 25, 2, true));
-        $parcels->add(LockerParcel::make(ParcelLockerTemplate::M));
+        $parcels->add(InPostParcel::make(38, 64, 8, 25, 2, true));
+        $parcels->add(InPostParcelLocker::S);
 
         $payload = $parcels->payload();
 
@@ -95,7 +94,7 @@ class ParcelsTest extends InPostTestCase
 
         $this->assertArrayHasKey('id', $payload[2]);
         $this->assertArrayHasKey('template', $payload[2]);
-        $this->assertEquals(ParcelLockerTemplate::M->value, $payload[2]['template']);
+        $this->assertEquals(InPostParcelLocker::S->value, $payload[2]['template']);
 
     }
 }

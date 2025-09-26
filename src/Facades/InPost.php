@@ -12,10 +12,8 @@ use Xgrz\InPost\ApiRequests\SendingMethods;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
 use Xgrz\InPost\ApiRequests\Tracking;
-use Xgrz\InPost\DTOs\ParcelTemplateDTO;
-use Xgrz\InPost\Enums\ParcelLockerTemplate;
+use Xgrz\InPost\Enums\InPostParcelLocker;
 use Xgrz\InPost\Exceptions\ShipXShipmentNotFoundException;
-use Xgrz\InPost\Models\ParcelTemplate;
 use Xgrz\InPost\Services\PointSearchService;
 
 class InPost
@@ -65,29 +63,20 @@ class InPost
 
     public static function parcelLockerTemplates(): Collection
     {
-        return ParcelLockerTemplate::optionsForLocker()
-            ->map(fn($item) => ParcelTemplateDTO::make($item));
+        return InPostParcelLocker::optionsForLocker();
     }
 
     public static function parcelAddressTemplates(): Collection
     {
-        return ParcelLockerTemplate::optionsForAddress()
-            ->map(fn($item) => ParcelTemplateDTO::make($item));
-    }
-
-    public static function parcelCourierTemplates(): Collection
-    {
-        return ParcelTemplate::all()
-            ->map(fn($item) => ParcelTemplateDTO::make($item));
+        return InPostParcelLocker::optionsForAddress();
     }
 
     public static function parcelTemplates(): Collection
     {
         $locker = self::parcelLockerTemplates()->keyBy('name');
         $address = self::parcelAddressTemplates()->keyBy('name');
-        $courier = self::parcelCourierTemplates()->keyBy('name');
 
-        return $locker->merge($address)->merge($courier);
+        return $locker->merge($address);
     }
 
     public static function parcelTemplateOptions(): Collection
