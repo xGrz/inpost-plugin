@@ -1,8 +1,6 @@
-# Parcel definitions
+# Parcels
 
-Parcel templates are used to define parcels for shipments.
-
-## Parcel Locker Template
+## Parcels Locker Template
 
 Defined for parcel locker shipments. Possible values:
 
@@ -12,26 +10,13 @@ Xgrz\Inpost\Enums\InPostParcelLocker::M;
 Xgrz\Inpost\Enums\InPostParcelLocker::L;
 Xgrz\Inpost\Enums\InPostParcelLocker::XL;
 ```
-You can use them also as templates for Courier shipments.
-
-
-## Parcel from stored templates (only courier shipments)
-
-Use the following model:
-```php
-\App\Models\ParcelTemplate::class;
-```
-Create your own templates describing parcel size/weight and assign them to the parcel.
-
-
 
 ## Custom parcel (only courier shipments)
 One time parcel can be defined as
 
 ```php
-use Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel;
 
-InPostParcel::make(
+\Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel::make(
     <int:$width>, 
     <int:$height>, 
     <int:$length>, 
@@ -39,4 +24,17 @@ InPostParcel::make(
     <int:$quantity>, 
     <bool:$non_standard>
 );
+```
+
+## Add parcel to shipment
+
+```php
+$s = new \Xgrz\InPost\Facades\InPostShipment();
+$s->parcels->add(\Xgrz\InPost\Enums\InPostParcelLocker|\Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel)
+```
+
+or shorthand
+```php
+$s = new \Xgrz\InPost\Facades\InPostShipment();
+$s->parcel(\Xgrz\InPost\Enums\InPostParcelLocker|\Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel)
 ```

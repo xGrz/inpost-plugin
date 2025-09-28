@@ -5,11 +5,13 @@ namespace Xgrz\InPost\Facades;
 use Xgrz\InPost\ApiRequests\SendShipment;
 use Xgrz\InPost\ApiResponses\ShipmentCreated;
 use Xgrz\InPost\ApiResponses\ShipmentCreateFail;
+use Xgrz\InPost\Enums\InPostParcelLocker;
 use Xgrz\InPost\Exceptions\ShipXException;
 use Xgrz\InPost\ShipmentComponents\Address\Receiver;
 use Xgrz\InPost\ShipmentComponents\Address\Sender;
 use Xgrz\InPost\ShipmentComponents\CashOnDelivery\CashOnDelivery;
 use Xgrz\InPost\ShipmentComponents\Insurance\Insurance;
+use Xgrz\InPost\ShipmentComponents\Parcels\InPostParcel;
 use Xgrz\InPost\ShipmentComponents\Parcels\Parcels;
 use Xgrz\InPost\ShipmentComponents\Services\ShipmentService;
 
@@ -43,6 +45,12 @@ class InPostShipment
         if (! empty($shipmentService)) {
             $this->service->setService($shipmentService);
         }
+    }
+
+    public function parcel(InPostParcel|InPostParcelLocker $parcel): static
+    {
+        $this->parcels->add($parcel);
+        return $this;
     }
 
     public function comment(?string $comment): static
