@@ -71,19 +71,6 @@ class InPost
         return InPostParcelLocker::optionsForAddress();
     }
 
-    public static function parcelTemplates(): Collection
-    {
-        $locker = self::parcelLockerTemplates()->keyBy('name');
-        $address = self::parcelAddressTemplates()->keyBy('name');
-
-        return $locker->merge($address);
-    }
-
-    public static function parcelTemplateOptions(): Collection
-    {
-        return self::parcelTemplates()->map(fn($item) => ['id' => $item->name, 'label' => $item->label]);
-    }
-
     /**
      * @throws ShipXShipmentNotFoundException
      * @throws ConnectionException
