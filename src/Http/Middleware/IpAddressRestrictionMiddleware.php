@@ -14,8 +14,9 @@ class IpAddressRestrictionMiddleware
         }
 
         $allowedSubnet = config('inpost.webhook_ip_restriction', '127.0.0.0/24');
+        $ip = $request->header('CF-Connecting-IP') ?? $request->ip();
 
-        if (! $this->ipInSubnet($request->ip(), $allowedSubnet)) {
+        if (! $this->ipInSubnet($ip, $allowedSubnet)) {
             abort(404);
         }
 
@@ -27,9 +28,9 @@ class IpAddressRestrictionMiddleware
     {
         [$subnetIp, $mask] = explode('/', $subnet);
 
-        $ipLong      = ip2long($ip);
-        $subnetLong  = ip2long($subnetIp);
-        $mask        = ~((1 << (32 - $mask)) - 1);
+        $ipLong = ip2long($ip);
+        $subnetLong = ip2long($subnetIp);
+        $mask = ~((1 << (32 - $mask)) - 1);
 
         return ($ipLong & $mask) === ($subnetLong & $mask);
     }
