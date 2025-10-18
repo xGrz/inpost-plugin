@@ -42,4 +42,9 @@ class InPostPoint extends Model
     {
         return ! empty($this->physical_type_mapped);
     }
+
+    public function getLabelAttribute(): string
+    {
+        return $this->name . ' (' . ($this->location_description ?? $this->city . ', ' . $this->street) . ')';
+    }
 }
