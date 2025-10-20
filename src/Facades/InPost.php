@@ -48,6 +48,17 @@ class InPost
             );
     }
 
+    public static function extraService(string $serviceName): Collection
+    {
+        return collect(self::services()->get($serviceName)['additional_services'] ?? [])->keyBy('id');
+    }
+
+    public static function hasExtraService(string $serviceName, string $extraServiceName): bool
+    {
+        return self::extraService($serviceName)->has($extraServiceName);
+    }
+
+
     public static function costCenters(): CostCenter
     {
         return (new CostCenter);
