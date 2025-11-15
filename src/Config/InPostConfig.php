@@ -16,7 +16,7 @@ class InPostConfig
 
     public static function webhookFullUrl(): string
     {
-        return route('inpostWebhook');
+        return route('inpostWebhook.consume');
     }
 
     /**
