@@ -2,50 +2,54 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     strategy:
       fail-fast: false
       matrix:
         php: [8.2, 8.3, 8.4]
         laravel: [11.*, 12.*]
         stability: [prefer-stable]
-        include:
-          - laravel: 11.*
-            testbench: ^9.0
-          - laravel: 12.*
-            testbench: ^10.0
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }}
+    name: PHP ${{ matrix.php }} | Laravel ${{ matrix.laravel }}
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-        coverage: none
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, xml, ctype, json, bcmath, sqlite3
+          coverage: none
 
-    - name: Setup problem matchers
-      run: |
-        echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-        echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-    - name: Install dependencies
-      run: |
-        composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-        composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+      - name: Determine Testbench version
+        id: testbench
+        run: |
+          if [[ "${{ matrix.laravel }}" == "11.*" ]]; then
+            echo "version=^9.0" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.laravel }}" == "12.*" ]]; then
+            echo "version=^10.0" >> $GITHUB_OUTPUT
+          fi
 
-    - name: List Installed Dependencies
-      run: composer show -D
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ steps.testbench.outputs.version }}" --no-update --no-interaction
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
-    - name: Execute tests
-      run: composer test
+      - name: List Installed Dependencies
+        run: composer show -D
+
+      - name: Execute tests
+        run: composer test
