@@ -5,10 +5,10 @@ namespace Xgrz\InPost\Tests\InPostApi;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Queue;
+use Xgrz\InPost\Actions\SynchronizePointsAction;
 use Xgrz\InPost\Enums\PointStatus;
 use Xgrz\InPost\Facades\InPost;
-use Xgrz\InPost\Jobs\SynchronizeInPostPointsJob;
-use Xgrz\InPost\Jobs\UpdateInPostPointDataJob;
+use Xgrz\InPost\Jobs\SynchronizePointsJob;
 use Xgrz\InPost\Models\InPostPoint;
 use Xgrz\InPost\Tests\InPostTestCase;
 
@@ -50,15 +50,15 @@ class PointsTest extends InPostTestCase
         Queue::fake();
         Http::fake($this->fakePointsResponse());
 
-        (new SynchronizeInPostPointsJob)->handle();
+        SynchronizePointsAction::make()->dispatchJobs();
 
-        Queue::assertPushed(UpdateInPostPointDataJob::class);
+        Queue::assertPushed(SynchronizePointsJob::class);
     }
 
     public function test_update_job()
     {
         Http::fake($this->fakePointsResponse());
-        (new SynchronizeInPostPointsJob)->handle();
+        SynchronizePointsAction::make()->dispatchJobs();
 
         $point = InPostPoint::name('BDA012')->first();
 
