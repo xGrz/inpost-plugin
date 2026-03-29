@@ -5,7 +5,6 @@ namespace Xgrz\InPost\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Xgrz\InPost\Config\InPostConfig;
-use Xgrz\InPost\Models\ParcelTemplate;
 
 class ConfigCommand extends Command
 {
@@ -17,7 +16,6 @@ class ConfigCommand extends Command
     {
         $config = config('inpost');
         $webhook = InPostConfig::webhookFullUrl();
-        $templates = ParcelTemplate::count();
         try {
             $sandbox = Str::of(InPostConfig::baseUrl())->contains('sandbox') ? 'Sandbox' : 'Production';
         } catch (\Exception $e) {
@@ -26,7 +24,6 @@ class ConfigCommand extends Command
 
         $this->components->twoColumnDetail('Webhook url', $webhook);
         $this->components->twoColumnDetail('Plugin environment', $sandbox);
-        $this->components->twoColumnDetail('Parcel templates stored', $templates);
         $this->components->twoColumnDetail('Organization ID', $config['organization']);
         $this->components->twoColumnDetail('API Token', $config['token'] ? 'Configured' : 'Not configured');
         $this->components->twoColumnDetail('Minimum value for insurance', $config['minimum_insurance_value']);
