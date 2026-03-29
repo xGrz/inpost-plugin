@@ -55,13 +55,24 @@ class SynchronizePointsAction
         return $this->totalPages;
     }
 
-    public function dispatchJobs(): void
+    public function dispatchJobs(?string $queueName = NULL): void
     {
         if ($this->totalPages === 0) return;
 
         for ($jobId = 1; $jobId <= $this->totalPages; $jobId++) {
-            dispatch(new SynchronizePointsJob($this->startDate, $jobId));
+            dispatch(new SynchronizePointsJob($this->startDate, $jobId))
+                ->onQueue($queueName ?? 'default');
         }
+    }
+
+    /**
+     * Dispatch the jobs to synchronize points (shorthand method)
+     * @return void
+     */
+    public static function dispatch(?string $queueName = NULL): void
+    {
+        static::make()
+            ->dispatchJobs($queueName);
     }
 
 }

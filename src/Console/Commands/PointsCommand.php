@@ -15,8 +15,8 @@ class PointsCommand extends Command
     public function handle()
     {
         try {
-            SynchronizePointsAction::make()->dispatchJobs();
-            $this->call('queue:work', ['--stop-when-empty' => true]);
+            SynchronizePointsAction::dispatch('inpost');
+            $this->call('queue:work', ['--queue' => 'inpost', '--stop-when-empty' => true]);
 
             $points = InPostPoint::count();
 
