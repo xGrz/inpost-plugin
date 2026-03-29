@@ -3,7 +3,7 @@
 namespace Xgrz\InPost\Console\Commands;
 
 use Illuminate\Console\Command;
-use Xgrz\InPost\Jobs\SynchronizeInPostPointsJob;
+use Xgrz\InPost\Actions\SynchronizePointsAction;
 use Xgrz\InPost\Models\InPostPoint;
 
 class PointsCommand extends Command
@@ -15,8 +15,8 @@ class PointsCommand extends Command
     public function handle()
     {
         try {
-            SynchronizeInPostPointsJob::dispatch()->onQueue('inpost');
-            $this->call('queue:work', ['--queue' => 'inpost', '--stop-when-empty' => true]);
+            SynchronizePointsAction::make()->dispatchJobs();
+            $this->call('queue:work', ['--stop-when-empty' => true]);
 
             $points = InPostPoint::count();
 
@@ -26,7 +26,6 @@ class PointsCommand extends Command
             $this->newLine();
             $this->info('Synchronized');
             return Command::SUCCESS;
-
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
