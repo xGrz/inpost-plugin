@@ -2,21 +2,22 @@
 
 namespace Xgrz\InPost\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use Xgrz\InPost\Enums\PointStatus;
 use Xgrz\InPost\Facades\InPost;
 use Xgrz\InPost\Models\InPostPoint;
 
-class UpdateInPostPointDataJob implements ShouldQueue
+class SynchronizePointsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public int $tries = 5;
+    public int $backoff = 2;
     private array $retrieveFields = [
         'image_url',
         'name',
@@ -37,18 +38,18 @@ class UpdateInPostPointDataJob implements ShouldQueue
         'physical_type_description',
     ];
 
-    public function __construct(public array $pointNames)
+    public function __construct(public ?Carbon $startDate, public int $page)
     {
     }
 
-    private function fetchApiPoints(): Collection
+    private function fetchApi()
     {
-        $items = InPost::points([
+        return InPost::points([
             'fields' => implode(',', $this->retrieveFields),
-            'name' => implode(',', $this->pointNames),
-            'per_page' => 500,
+            'updated_from' => $this->startDate?->format('Y-m-d'),
+            'per_page' => config('inpost.synchronize_points_chunk_size', 250),
+            'page' => $this->page,
         ])['items'];
-        return collect($items);
     }
 
     private function buildPointPayload(array $point): array
@@ -75,42 +76,9 @@ class UpdateInPostPointDataJob implements ShouldQueue
         ];
     }
 
-    /**
-     * @throws \Throwable
-     */
     public function handle(): void
     {
-        $apiPoints = $this->fetchApiPoints();
-        $localPoints = InPostPoint::whereIn('name', $this->pointNames)->get();
-
-        $apiPoints->each(function($point) use ($localPoints) {
-            try {
-                $localPoint = $localPoints->firstWhere('name', $point['name']) ?? new InPostPoint();
-                $localPoint->fill($this->buildPointPayload($point));
-                if ($localPoint->isDirty()) {
-                    $localPoint->save();
-                }
-            } catch (\Exception $e) {
-                Log::error($e->getMessage(), $this->buildPointPayload($point));
-            }
-        });
+        collect($this->fetchApi())
+            ->each(fn($point) => InPostPoint::updateOrCreate(['name' => $point['name']], self::buildPointPayload($point)));
     }
-
-
-//    public function handle(): void
-//    {
-//        $apiPoints = $this->fetchApiPoints();
-//        $localPoints = InPostPoint::whereIn('name', $this->pointNames)->get();
-//
-//        DB::transaction(function() use ($apiPoints, $localPoints) {
-//            $apiPoints->each(function($point) use ($localPoints) {
-//                $localPoint = $localPoints->firstWhere('name', $point['name']) ?? new InPostPoint();
-//                $localPoint->fill($this->buildPointPayload($point));
-//                if ($localPoint->isDirty()) {
-//                    $localPoint->save();
-//                }
-//            });
-//        });
-//    }
-
 }
