@@ -6,16 +6,16 @@ use Illuminate\Console\Command;
 use Xgrz\InPost\Actions\SynchronizePointsAction;
 use Xgrz\InPost\Models\InPostPoint;
 
-class PointsCommand extends Command
+class ResetPointsCommand extends Command
 {
-    protected $signature = 'inpost:points';
+    protected $signature = 'inpost:reset-points';
 
-    protected $description = 'Synchronize InPost Parcel-lockers and points of delivery';
+    protected $description = 'Synchronize InPost Parcel-lockers and points of delivery with reset';
 
     public function handle(): int
     {
         try {
-            SynchronizePointsAction::dispatch('inpost');
+            SynchronizePointsAction::dispatch('inpost', true);
             $this->call('queue:work', ['--queue' => 'inpost', '--stop-when-empty' => true]);
 
             $points = InPostPoint::count();

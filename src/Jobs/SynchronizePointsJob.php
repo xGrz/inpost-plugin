@@ -18,6 +18,7 @@ class SynchronizePointsJob implements ShouldQueue
 
     public int $tries = 5;
     public int $backoff = 2;
+    public int $chunkSize = 100;
     private array $retrieveFields = [
         'image_url',
         'name',
@@ -38,8 +39,9 @@ class SynchronizePointsJob implements ShouldQueue
         'physical_type_description',
     ];
 
-    public function __construct(public ?Carbon $startDate, public int $page)
+    public function __construct(public ?Carbon $startDate, public int $apiPage, ?int $chunkSize = null)
     {
+        $this->chunkSize = $chunkSize ?? config('inpost.synchronize_points_chunk_size', 500);
     }
 
     private function fetchApi()
@@ -47,8 +49,8 @@ class SynchronizePointsJob implements ShouldQueue
         return InPost::points([
             'fields' => implode(',', $this->retrieveFields),
             'updated_from' => $this->startDate?->format('Y-m-d'),
-            'per_page' => config('inpost.synchronize_points_chunk_size', 250),
-            'page' => $this->page,
+            'per_page' => $this->chunkSize,
+            'page' => $this->apiPage,
         ])['items'];
     }
 

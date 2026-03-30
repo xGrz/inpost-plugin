@@ -69,9 +69,9 @@ class SynchronizePointsAction
      * Dispatch the jobs to synchronize points (shorthand method)
      * @return void
      */
-    public static function dispatch(?string $queueName = NULL): void
+    public static function dispatch(?string $queueName = NULL, bool $shouldResetPoints = false): void
     {
-        static::make()
+        static::make($shouldResetPoints)
             ->dispatchJobs($queueName);
     }
 
