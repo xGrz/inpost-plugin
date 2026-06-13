@@ -1,0 +1,91 @@
+{
+  "href": "https://api-pl-points.easypack24.net/v1/points",
+  "count": 1,
+  "page": 1,
+  "per_page": 25,
+  "total_pages": 1,
+  "items": [
+    {
+      "href": "https://api-pl-points.easypack24.net/v1/points/KRA02APP",
+      "name": "KRA02APP",
+      "display_name": "InPost Paczkomat KRA02APP",
+      "type": [
+        "parcel_locker"
+      ],
+      "status": "Operating",
+      "location": {
+        "longitude": 19.87325,
+        "latitude": 50.00919
+      },
+      "location_type": "Outdoor",
+      "location_date": null,
+      "location_description": "Prywatna posesja wjazd od strony Dobrowolskiego",
+      "location_description_1": null,
+      "location_description_2": null,
+      "distance": null,
+      "opening_hours": "24/7",
+      "address": {
+        "line1": "Dobrowolskiego",
+        "line2": "30-394 Kraków"
+      },
+      "address_details": {
+        "city": "Kraków",
+        "province": "małopolskie",
+        "post_code": "30-394",
+        "street": "Dobrowolskiego",
+        "building_number": null,
+        "flat_number": null
+      },
+      "phone_number": null,
+      "payment_point_descr": "Płatność apką InPost oraz PayByLink",
+      "functions": [
+        "allegro_courier_collect",
+        "allegro_courier_reverse_return_send",
+        "allegro_courier_send",
+        "allegro_letter_reverse_return_send",
+        "allegro_letter_send",
+        "allegro_parcel_collect",
+        "allegro_parcel_reverse_return_send",
+        "allegro_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send"
+      ],
+      "partner_id": 0,
+      "is_next": false,
+      "payment_available": true,
+      "payment_type": {
+        "0": "Payments are not supported"
+      },
+      "virtual": "0",
+      "recommended_low_interest_box_machines_list": [
+        "KRA106M",
+        "KRA20M",
+        "KRA208M",
+        "KRA197M",
+        "KRA356M"
+      ],
+      "apm_doubled": null,
+      "location_247": true,
+      "operating_hours_extended": {
+        "customer": null
+      },
+      "agency": "IPM9988771",
+      "image_url": "https://static.easypack24.net/points/pl/images/KRA02APP.jpg",
+      "easy_access_zone": true,
+      "air_index_level": "GOOD",
+      "physical_type_mapped": "006",
+      "physical_type_description": "Appkomat InPost – swoją paczkę odbierzesz wygodniej z aplikacją InPost"
+    }
+  ],
+  "meta": {
+    "href": "https://api-pl-points.easypack24.net/v1/points",
+    "count": 1,
+    "page": 1,
+    "per_page": 25,
+    "total_pages": 1
+  }
+}

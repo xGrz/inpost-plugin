@@ -12,6 +12,7 @@ use Xgrz\InPost\ApiRequests\SendingMethods;
 use Xgrz\InPost\ApiRequests\Services;
 use Xgrz\InPost\ApiRequests\Statuses;
 use Xgrz\InPost\ApiRequests\Tracking;
+use Xgrz\InPost\DTOs\Point;
 use Xgrz\InPost\Enums\InPostParcelLocker;
 use Xgrz\InPost\Exceptions\ShipXShipmentNotFoundException;
 use Xgrz\InPost\Services\PointSearchService;
@@ -108,6 +109,12 @@ class InPost
     public static function points(array $search = [])
     {
         return (new Points())->get($search);
+    }
+
+    public static function point(string $pointId): ?Point
+    {
+        $point = (new Points())->get(['name' => $pointId])['items'][0] ?? NULL;
+        return $point ? new Point($point) : NULL;
     }
 
     public static function pointSearch(?string $query): Collection
