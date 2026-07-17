@@ -133,7 +133,7 @@ class InPost
             'is247' => $point['opening_hours'] === '24/7',
             'street' => $point['address']['line1'],
             'city' => $point['address']['line2'],
-            'isLocker' => in_array('parcel_locker', $point['type']),
+            'isLocker' => !in_array('pop', $point['type']) && !in_array('pok', $point['type']),
         ];
     }
 
