@@ -113,13 +113,28 @@ class InPost
 
     public static function point(string $pointId): ?Point
     {
-        $point = (new Points())->get(['name' => $pointId])['items'][0] ?? NULL;
+        $point = (new Points())->get(['name' => $pointId, 'fields' => ['name', 'display_name', 'type', 'status', 'address', 'location_247']]);
         return $point ? new Point($point) : NULL;
     }
 
     public static function pointSearch(?string $query): Collection
     {
         return PointSearchService::make($query);
+    }
+
+    public static function pointInfo(string $pointId): ?array
+    {
+        $point = (new Points())->get(['name' => $pointId])['items'][0] ?? NULL;
+        if (!$point) return null;
+        return [
+            'name' => $point['name'],
+            'image' => $point['image_url'],
+            'description' => $point['location_description'],
+            'is247' => $point['opening_hours'] === '24/7',
+            'street' => $point['address']['line1'],
+            'city' => $point['address']['line2'],
+            'isLocker' => in_array('parcel_locker', $point['type']),
+        ];
     }
 
 

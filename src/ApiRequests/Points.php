@@ -2,7 +2,6 @@
 
 namespace Xgrz\InPost\ApiRequests;
 
-
 class Points extends BaseShipXCall
 {
     protected string $endpoint = '/v1/points';
@@ -11,6 +10,10 @@ class Points extends BaseShipXCall
     {
         $search = collect($search)->only([
             'name',
+            'display_name',
+            'status',
+            'address',
+            'address_details',
             'type',
             'functions',
             'partner_id',
@@ -21,11 +24,12 @@ class Points extends BaseShipXCall
             'updated_to',
             'relative_point',
             'relative_post_code',
+            'address_details',
             'max_distance',
             'limit',
             'page',
             'per_page',
-            'fields'
+            'fields',
         ]);
 
         $this->payload = $search->toArray();
