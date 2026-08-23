@@ -122,8 +122,9 @@ class InPost
         return PointSearchService::make($query);
     }
 
-    public static function pointInfo(string $pointId): ?array
+    public static function pointInfo(?string $pointId): ?array
     {
+        if (!$pointId) return NULL;
         $point = (new Points())->get(['name' => $pointId])['items'][0] ?? NULL;
         if (!$point) return null;
         return [
