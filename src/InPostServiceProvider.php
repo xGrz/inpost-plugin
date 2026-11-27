@@ -19,7 +19,7 @@ class InPostServiceProvider extends ServiceProvider
         self::setupTranslations();
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->commands([
             PublishConfigCommand::class,

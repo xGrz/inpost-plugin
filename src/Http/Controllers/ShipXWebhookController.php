@@ -16,6 +16,7 @@ class ShipXWebhookController
 
     public function consumeWebhook(WebhookRequest $request)
     {
+        Log::info('Webhook received', $request->webhookPayload());
         return match ($request->webhookEvent()) {
             'shipment_confirmed' => self::shipmentConfirmed($request->webhookPayload()),
             'shipment_status_changed' => self::statusChanged($request->webhookPayload()),
